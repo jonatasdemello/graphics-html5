@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../_include/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" href="../../_include/vendor/prism.css">
+
+	<link rel="stylesheet" href="../../_include/style.css">
+    <script type="text/javascript" src="../js/utils.js"></script>
+	<title>Template</title>
+	<style>
+		canvas {
+			border: 1px dashed black;
+		}
+	</style>
+</head>
+
+<body>
+	<main class="container">
+		<nav class="nav">
+			<a class="nav-link active" aria-current="page" href="../../index.html">&larr; Back</a>
+		</nav>
+
+		<h1>Title</h1>
+		<p>Some text.</p>
+
+		<!-- canvas element -->
+		<canvas id="myCanvas" width="640" height="480"></canvas>
+	</main>
+
+	<script>
+		// get canvas and context
+		var myCanvas = document.getElementById("myCanvas");
+		var myContext = myCanvas.getContext("2d");
+
+		// Draw some rectangles with different color values
+		myContext.fillStyle = "rgba(0,50,200,0.5)";
+		myContext.fillRect(25, 25, 100, 100);
+		myContext.clearRect(45, 45, 60, 60);
+		myContext.strokeRect(50, 50, 50, 50);
+		myContext.stroke();
+	</script>
+
+	<script src="../../_include/vendor/prism.js"></script>
+</body>
+
+</html>
