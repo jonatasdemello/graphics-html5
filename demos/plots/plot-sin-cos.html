@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../include/vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../include/vendor/prism.css">
+    <link rel="stylesheet" href="../include/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="../include/vendor/prism.css">
 
-    <link rel="stylesheet" href="../../include/style.css">
+    <link rel="stylesheet" href="../include/style.css">
     <script type="text/javascript" src="../js/utils.js"></script>
     <title>Canvas</title>
 </head>
@@ -15,11 +15,13 @@
 <body>
     <main class="container">
         <nav class="nav">
-            <a class="nav-link active" aria-current="page" href="../../index.html">&larr; Home</a>
+            <a class="nav-link active" aria-current="page" href="../index.html">&larr; Home</a>
         </nav>
 
         <h1>Simple Canvas example</h1>
-        <p>green = SIN(x), yellow = COS(x)</p>
+        <p>
+            green = sin(x)<br>
+            yellow = cos(x)</p>
         <canvas id="myCanvas" width="640" height="480"></canvas>
     </main>
 
@@ -88,7 +90,7 @@
             myContext.fillRect((dx + x) * es, (dy - y) * es, 2, 2);
         }
     </script>
-    <script src="../../include/vendor/prism.js"></script>
+    <script src="../include/vendor/prism.js"></script>
 </body>
 
 </html>

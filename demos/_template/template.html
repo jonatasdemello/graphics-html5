@@ -4,10 +4,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../../include/vendor/bootstrap.min.css" />
-	<link rel="stylesheet" href="../../include/vendor/prism.css">
+	<link rel="stylesheet" href="../include/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" href="../include/vendor/prism.css">
 
-	<link rel="stylesheet" href="../../include/style.css">
+	<link rel="stylesheet" href="../include/style.css">
     <script type="text/javascript" src="../js/utils.js"></script>
 	<title>Template</title>
 	<style>
@@ -20,7 +20,7 @@
 <body>
 	<main class="container">
 		<nav class="nav">
-			<a class="nav-link active" aria-current="page" href="../../index.html">&larr; Home</a>
+			<a class="nav-link active" aria-current="page" href="../index.html">&larr; Home</a>
 		</nav>
 
 		<h1>Title</h1>
@@ -28,6 +28,25 @@
 
 		<!-- canvas element -->
 		<canvas id="myCanvas" width="640" height="480"></canvas>
+
+		<p>Using <a href="https://prismjs.com/">prism.js</a> for code syntax highlighter.</p>
+
+<div class="container">
+<pre>
+<code class="language-javascript line-numbers">
+// get canvas and context
+var myCanvas = document.getElementById("myCanvas");
+var myContext = myCanvas.getContext("2d");
+
+// Draw some rectangles with different color values
+myContext.fillStyle = "rgba(0,50,200,0.5)";
+myContext.fillRect(25, 25, 100, 100);
+myContext.clearRect(45, 45, 60, 60);
+myContext.strokeRect(50, 50, 50, 50);
+myContext.stroke();
+</code>
+</pre>
+</div>
 	</main>
 
 	<script>
@@ -43,7 +62,8 @@
 		myContext.stroke();
 	</script>
 
-	<script src="../../include/vendor/prism.js"></script>
+
+	<script src="../include/vendor/prism.js"></script>
 </body>
 
 </html>

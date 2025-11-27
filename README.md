@@ -12,3 +12,5 @@ awesome graphics on the screen.
 
 A couple of decades later I am looking back at them and try to understand how they work
 and what mathematical formulas are behind.
+
+The `/demos/` folder is organized using .html files, start with index.html
