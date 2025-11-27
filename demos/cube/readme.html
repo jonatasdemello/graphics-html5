@@ -4,24 +4,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../_include/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../include/vendor/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="../../_include/style.css">
+    <link rel="stylesheet" href="../../include/style.css">
     <title>Canvas</title>
 </head>
 
 <body>
     <main class="container">
         <nav class="nav">
-            <a class="nav-link active" aria-current="page" href="../../index.html">&larr; Back</a>
+            <a class="nav-link active" aria-current="page" href="../../index.html">&larr; Home</a>
         </nav>
 
-        <h1>3D Cube - Readme</h1>
+        <h1>3D Cube</h1>
         <p>
             This code dates back to 1994,
             originally from my Computer Science programming classes.
-            It was created in standard ANSI "C" language, using Borland C compiler (or Turbo C++) and the "graphics.h"
-            library.
+            It was created in standard ANSI "C" language, using Borland C compiler (or Turbo C++) and the "graphics.h" library.
             The Borland Graphics Interface, also known as BGI, was a graphics library bundled with several Borland
             compilers for the DOS operating systems since 1987.
             <a href="https://en.wikipedia.org/wiki/Borland_Graphics_Interface">Reference</a>
@@ -38,16 +37,17 @@
         </p>
         <p>
             <strong>Disclaimer:</strong><br>
-            This code is for learning and fun purposes and it does not follow any design pattern, clean code or any
-            enterpise level standards. Just have fun and enjoy!
+            This code is for learning/ fun purposes and it does not follow any design patterns,
+            clean code or enterprise level standards. <br>
+            Just have fun and enjoy!
         </p>
         <hr>
+        <h2>Original Files</h2>
         <p>
             Here are the original 1994 files (no modifications, same code with minor changes):
         <ul>
             <li><a href="./original/KUBO1.CPP">KUBO1.CPP</a></li>
             <li><a href="./original/KUBO2.CPP">KUBO2.CPP</a></li>
-            <li><a href="./projeto.md">Project information</a> (PT-BR) the same as translated below</li>
             <li><a href="./original/EGAVGA.BGI">EGAVGA.BGI</a> (need this file for graphics)</li>
         </ul>
         </p>
@@ -72,21 +72,20 @@
         </ul>
         </p>
     </main>
+    <hr>
 
     <div class="container">
+        <h2>Project Description</h2>
+
+        <p><a href="./readme-pt.html">Project information</a> (PT-BR) version.</p>
         <p>
-            <strong>Cube 3D - Project:</strong>
-        </p>
-        <p>
-            Elaborate an object-oriented program for the manipulation of a cube in 3 (three) dimensions (X, Y and Z
-            axes).
+            Elaborate an object-oriented program for the manipulation of a cube in 3 (three) dimensions (X, Y and Z axes).
             <br>
-            The cube is colored on the screen and can be enlarged or reduced (scale), rotated (rotation) or moved in
-            space (translation).
+            The cube is colored on the screen and can be enlarged or reduced (scale), rotated (rotation) or moved in space (translation).
         </p>
         <p>
-            The Cube object is initialized with its initial coordinates (8 points in space that will form the edges) and
-            each point in the format P(x, y, z)
+            The Cube object is initialized with its initial coordinates (8 points in space that will form the edges)
+            and each point in the format P(x, y, z)
         </p>
         <p>
             The Object must have methods for showing and erasing (drawing) the cube in space.
@@ -103,10 +102,21 @@
         <p>
             The whole process of object manipulation is done through the use of matrices.
         </p>
-        <p>
-            - Preliminary considerations <br>
-            - Geometric transformations
-        </p>
+
+        <pre>
+                P5-----P1
+               / |    / |
+              P4-----P0 |
+              |  |   |  |
+              |  P6--|--P2
+              | /    | /
+              P7-----P3
+
+            // front face: p1, p4, p5, p0
+        </pre>
+        <h2>Preliminary considerations</h2>
+
+        <h3>Geometric transformations</h3>
         <p>
             Every design is composed of primitives (dots) whose parameters are coordinated in relation to the origin of
             a Cartesian system.
@@ -119,9 +129,9 @@
             - translation<br>
             - rotation around origin<br>
         </p>
-        <p>
-            <strong>Scale</strong>
-        </p>
+
+        <h3>Scale</h3>
+
         <p>
             It is called transformation in scale the enlargement or reduction of a figure.
             <br>
@@ -136,42 +146,37 @@
             Calling the horizontal and vertical scale factors of Ex and Ey, the coordinates (x',y') obtained by the
             transformation of scale of the coordinated (x,y) are worth:
         </p>
-        <p>
-            x' = Ex * x <br>
+        <pre>
+            x' = Ex * x
             y' = Ey * y
-        </p>
+        </pre>
         <p>
-            A scale factor greater than 1 causes an image magnification in the direction of the axis affected by the
-            factor.
+            A scale factor greater than 1 causes an image magnification in the direction of the axis affected by the factor.
             <br>
             A scale factor between 0 and 1 causes a reduction.
             <br>
             A negative factor causes a mirroring of the image in relation to the axis not affected by this factor.
         </p>
         <p>
-            When the two factors Ex and Ey are equal, the figure obtained is similar to the original, that is, it does
-            not suffer distortion.
+            When the two factors Ex and Ey are equal, the figure obtained is similar to the original, that is, it does not suffer distortion.
             <br>
             When the scale factors are different, distorted figures are obtained from the original.
         </p>
         <p>
             Note that when a scale transfomation is applied to a drawing, not only its size changes but also the
-            distance from its points to the origin of the coordinate system, because the point (0.0) is the center of
-            the scale.
+            distance from its points to the origin of the coordinate system, because the point (0.0) is the center of the scale.
             <br>
-            To scale in relation to a point other than the origin, a combination of translation transformations and
-            scale must be made.
+            To scale in relation to a point other than the origin, a combination of translation transformations and scale must be made.
         </p>
-        <p>
-            <strong>Translation</strong>
-        </p>
+
+        <h3>Translation</h3>
+
         <p>
             The movement of a figure to another position in the coordinate system is called a translation, so that all
             points in the image are displaced from the same distance to their previous position.
         </p>
         <p>
-            The translation transformation is obitated by adding to all the coordinates that define the drawing, the
-            translation constants.
+            The translation transformation is obitated by adding to all the coordinates that define the drawing, the translation constants.
             <br>
             In the two-dimensional case, there are two constants: one referring to the displacement parallel to the X
             axis and another referring to the displacement parallel to the Y axis.
@@ -179,13 +184,13 @@
             By calling these constants Tx and Ty, the coordinates (x',y') obtained by the translation of the coordinate
             point (x,y) are valid:
         </p>
-        <p>
-            x' = Tx + x <br>
+        <pre>
+            x' = Tx + x
             y' = Ty + y
-        </p>
-        <p>
-            <strong>Rotation at Around the origin</strong>
-        </p>
+        </pre>
+
+        <h3>Rotation at Around the origin</h3>
+
         <p>
             It is called rotation around the origin to the movement of a figure to another position, so that all points
             of the image maintain the same distance from the origin they had before the transformation.
@@ -201,10 +206,10 @@
             The coordinates (x',y') obtained by rotating the coordinate point (x,y) of an angle &#1012; around the
             origin are valid:
         </p>
-        <p>
-            x' = x * cos &#1012; - y * sen &#1012; <br>
+        <pre>
+            x' = x * cos &#1012; - y * sen &#1012;
             y' = y * cos &#1012; + y * sen &#1012;
-        </p>
+        </pre>
     </div>
 </body>
 

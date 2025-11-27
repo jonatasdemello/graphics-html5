@@ -32,7 +32,7 @@ double X[3];
 int error, ScreenInit = 1;
 long int size = -1;  // if size>0, plot only size points
 
-int pointSize = 2; 
+int pointSize = 2;
 
 struct Cartesian C;
 struct Polar P;
@@ -69,7 +69,7 @@ void RNG()
 /* Initialize the graphics screen (Borland C specific)  and sets the midpoints and scale for the screen */
 int InitScreen(void)
 {
-	int GraphMode, GraphDriver;	
+	int GraphMode, GraphDriver;
 	GraphDriver = VGA;
 	GraphMode = VGAHI;
 	detectgraph(&GraphDriver, &GraphMode);
@@ -77,7 +77,7 @@ int InitScreen(void)
 	return graphresult();
 }
 
-void InitPoints(void) 
+void InitPoints(void)
 {
 	if (triple)
 	{
@@ -85,14 +85,14 @@ void InitPoints(void)
 		Scale = getmaxx() / 4;
 		MidA = MidC = Scale, MidB = 3 * Scale;
 		MidY = getmaxy() / 4;
-	} 
+	}
 	else
 	{
 		Scale = getmaxx() / 2;
 		MidA = Scale;
 		MidY = getmaxy() / 2;
 	}
-	if (MidY < Scale) 
+	if (MidY < Scale)
 		Scale = MidY;
 }
 
@@ -145,17 +145,17 @@ void rotate(struct Cartesian *C)
 void Plot(struct Cartesian C)
 {
 	rotate(&C);
-	
+
 	putpixel(MidA + project(C.x), MidY - project(C.y), C.Color);
-	
+
 	int left,top,right,bottom;
 	left = MidA + project(C.x);
 	top = MidY - project(C.y);
 	right = left + pointSize;
 	bottom = top + pointSize;
-	
+
 	rectangle(left,top,right,bottom);
-	
+
 	if (triple)
 	{
 		putpixel(MidB + project(C.y), MidY - project(C.z), C.Color);
@@ -227,10 +227,10 @@ int main()
 		ScreenInit = 0;
 	}
 	plot_file();
-	
+
 	getch();  /* gets a char from the keyboard without echoing */
 	closegraph();     /* shut down graphics system */
- 
+
 	//exit(EXIT_SUCCESS);
 	return 0;
 }
