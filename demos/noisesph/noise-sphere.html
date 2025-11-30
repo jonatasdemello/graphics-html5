@@ -126,29 +126,32 @@
 			z = rads(angle);
 			x = (C.x * Math.cos(z)) + (C.y * Math.sin(z));
 			y = (C.y * Math.cos(z)) - (C.x * Math.sin(z));
-			C.x = x; C.y = y;
+			C.x = x;
+			C.y = y;
 		}
 		function RotateX(C, angle) {
 			let x, y, z;
 			x = rads(angle);
 			y = (C.y * Math.cos(x)) + (C.z * Math.sin(x));
 			z = (C.z * Math.cos(x)) - (C.y * Math.sin(x));
-			C.z = z; C.y = y;
+			C.z = z;
+			C.y = y;
 		}
 		function RotateY(C, angle) {
 			let x, y, z;
 			y = rads(angle);
 			x = (C.x * Math.cos(y)) + (C.z * Math.sin(y));
 			z = (C.z * Math.cos(y)) - (C.x * Math.sin(y));
-			C.z = z; C.x = x;
+			C.z = z;
+			C.x = x;
 		}
 		function Rotate(ax, angle) {
 			for (let i = 0; i < pointsXYZ.length; i++) {
-				if (ax == "x")
+				if (ax === "x")
 					RotateX(pointsXYZ[i], angle);
-				if (ax == "y")
+				if (ax === "y")
 					RotateY(pointsXYZ[i], angle);
-				if (ax == "z")
+				if (ax === "z")
 					RotateZ(pointsXYZ[i], angle);
 			}
 			ClearCanvas();

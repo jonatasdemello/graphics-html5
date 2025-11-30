@@ -1,0 +1,78 @@
+
+https://www.landsnail.com/a2ref.htm
+https://calormen.com/jsbasic/reference.html
+https://www.apple2.org/faq/FAQ.applesoft.html
+
+Apple II
+
+LoRes
+  GR - 40x40 + 4 lines of text or 40x48 graphics on the screen with 16 fixed colors available.
+  COLOR=X Valid colors are 0 (Black), 1 (Magenta), 2 (Dark Blue), 3 (Violet), 4 (Dark Green), 5 (Dark Gray), 6 (Medium Blue), 7 (Light Blue), 8 (Brown), 9 (Orange), 10 (Light Gray), 11 (Pink), 12 (Bright Green), 13 (Yellow), 14 (Aqua) and 15 (White)
+	
+HiRes
+  HGR  - 280x160 mode with 4 lines of text at the bottom
+  HGR2 - 280x192 hires graphics screen
+	Valid color numbers are 0 (Black 1), 1 (Green), 2 (Violet), 3 (White 1), 4 (Black 2), 5 (Orange), 6 (Blue), 7 (White 2). 
+
+
+Lo-Res Graphics
+
+GR
+    Set display to mixed test/low resolution ("lores") graphics mode, clear screen to black 
+COLOR= aexpr
+    Set lores color (0...15) 
+PLOT aexpr, aexpr
+    Plot lores point (x = 0...39, y = 0...39/47) 
+HLIN aexpr, aexpr AT aexpr
+    Plot horizontal line (x1, x2 at y) 
+VLIN aexpr, aexpr AT aexpr
+    Plot vertical line (y1, y2 at x) 
+
+Hi-Res Graphics
+
+HGR
+    Set display to mixed/high resolution ("hires") graphics mode, clear screen to black 
+HGR2
+    Set display to full hires mode (page 2), clear screen to black 
+HPLOT [TO] aexpr, aexpr [ TO aexpr, aexpr ] ...
+    Plot hires point/line (x=0...279, y=0...191) 
+HCOLOR= aexpr
+    Set hires color (0...7) 
+
+
+
+Low Resolution (Lores) graphics
+
+This graphics mode is always available, and provides 40x40 + 4 lines of text or 40x48 graphics on the screen with 16 fixed colors available. It does this by replacing each character on the text screen with two blocks. [Since the screens are in the same memory location, you can use Lores graphics commands to put stuff on your screen. Experiment around!]
+
+The Lores graphics screen can be turned on in "mixed" mode of 40x40 with 4 lines of text at the bottom with the 'GR' command. This clears all of the 40x40 field to black, and puts the current prompt line in the space at the bottom. 'COLOR=n' sets the color to the appropriate selection. Valid colors are 0 (Black), 1 (Magenta), 2 (Dark Blue), 3 (Violet), 4 (Dark Green), 5 (Dark Gray), 6 (Medium Blue), 7 (Light Blue), 8 (Brown), 9 (Orange), 10 (Light Gray), 11 (Pink), 12 (Bright Green), 13 (Yellow), 14 (Aqua) and 15 (White). If the value for your color is greater than 15, only the remainder when divided by 16 is used, so 'COLOR=16' is equivalent to 'COLOR=0' and the like.
+
+'PLOT x,y' sets the specified point to the current color. Coordinates start with 0,0 in the top-left corner of the screen, and increase towards the bottom and right. While there is no arbitrary lores line function, there is functionality to draw horizontal or vertical lines. They have the following form: 'HLIN x1,x2 AT y' and 'VLIN y1,y2 AT x'
+
+'SCRN(x,y)' will return the color (0-15) of the pixel at coordinated x,y.
+
+'TEXT' will get you out of Lores or hires graphics mode (with a lot of ugly garbage where your lores screen was; you may want to do a 'HOME' to clear the screen after switching out. 
+
+ High Resolution (Hires) graphics:
+
+Apple IIs with at least 16K of memory (24-32K if you want to use an OS as well) have the ability to draw on a 280x192 hires graphics screen; 24K (36-48K if an OS is desired) for the second independent screen. All Apple IIs capable of drawing that can draw in 4 fixed colors; past the first few revisions of the Apple ][ motherboard, there are 6 fixed colors. [Technically 8 colors, but since there are two slightly different whites and two blacks, that's 6 real colors]
+
+Hires is also a root beer, but that's outside the scope of this FAQ. [And no, I don't have that picture online.]
+
+The 'HGR' command will turn on the first hires screen to a mixed 280x160 mode with 4 lines of text at the bottom, and clears the graphical section to all black. [It may not move the current prompt down there, so hit return if you seem to have lost the cursor.] 'HCOLOR=n' sets the color for drawing. Valid color numbers are 0 (Black 1), 1 (Green), 2 (Violet), 3 (White 1), 4 (Black 2), 5 (Orange), 6 (Blue), 7 (White 2).
+
+The graphics drawing commands are much more intelligent than in lores-- you can draw lines of any angle, as well as points. 'HPLOT x,y' turns on that pixel. 'HPLOT x1,y1 TO x2,y2 [TO x3, y3 [TO x4,y4]]' draws a line or series of lines in a row; you can also do 'HPLOT x1,y1: HPLOT TO x2,y2' and the like. Coordinates start with 0,0 in the top-left corner of the screen, and increase towards the bottom and right.
+
+Colors have some strange properties-- colors 1 and 5 can only appear in even numbered columns, 2 and 6 only in odd-numbered columns. Any two adjacent "on" pixels will appear white. [This is all due to the hardware display methods]
+
+'HGR2' turns on the second hires screen, and clears it to black. It also displays all of it (280x192) with no text visible at the bottom. [There's no easy way to get both the second hires screen and 4 lines of text onscreen in a "mixed" mode as with lores and the first hires screen without relocating the BASIC program in memory, some loops to do memory copying and the like.] You can draw to the second hires screen the same way as with the first-- the commands are identical. By tweaking softswitches and other locations, you can draw on one page while displaying the other, and other fun tricks.
+
+For the technically inclined, some more info about the single (regular) hires screen. It's 280x192 pixels in size, taking a $2000 byte chunk of memory starting at either $2000 ("page 1") or $4000 ("page 2"). It's not linearized either, and has some 'holes' in the display to make it fill up to $2000 bytes in size. [Each row takes 40 bytes, so after 3 rows, there's 8 unused bytes to make it an even 128 bytes]
+
+There are 6 truly distinct colors, with 2 duplicated (2 whites and 2 blacks). Here's a general rundown of the rules: 2 (or more) adjacent 1 bits display as white. Next, a pair of bytes hold 14 pixels horizontally, with the high bits in each not counting as pixels. Bits are displayed from the least significant in each pair, so an 01 in $2000 is the column 0 of row 0 on the first hires screen.
+
+A 0 in an even numbered column and a 1 immediately to its right (assuming that 1 is not part of a white chunk) is green or orange. [More on that in a second] Similarly, a 1 and 0 in the same position gives violet or blue. If there's two 0s in such a pair, it'll come out as black.
+
+For Apple IIs past the first few revisions of the Apple ][, the high bit of each byte shifts colors up for each pixel contained within to the second palette of 4 colors. Black and white are duplicated between the two, but green becomes orange and violet becomes blue if the high bit is set.
+
+'TEXT' will get you out of Lores or hires graphics mode. 

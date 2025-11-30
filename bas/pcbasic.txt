@@ -1,0 +1,108 @@
+https://gw-basic.com/FAQ
+
+PCbasic
+https://github.com/robhagemans/pcbasic/wiki
+
+
+https://www.freebasic.net/
+
+https://gw-basic.netlify.app/
+https://gw-basic.netlify.app/files/tuts/tutorial-bw
+
+
+https://gitlab.com/tkchia/GW-BASIC
+https://codeberg.org/tkchia/GW-BASIC
+
+
+http://www.antonis.de/qbebooks/gwbasman/index.html
+
+
+https://a2central.com/
+https://a2central.com/2025/08/init-hello-2025-video-playlist/
+
+https://juiced.gs/
+
+Book:
+https://freecomputerbooks.com/Developing-Graphics-Frameworks-with-Python-and-OpenGL.html
+
+https://www.jagregory.com/abrash-black-book/
+https://github.com/jagregory/abrash-black-book/blob/master/README.md
+
+http://www.brackeen.com/vga/index.html
+http://www.brackeen.com/vga/download.html
+
+https://math.hws.edu/graphicsbook/
+
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+
+    See /usr/share/doc/python3.12/README.venv for more information.
+	
+pip install pcbasic
+
+pip3 install pcbasic
+pip3 install pygame
+
+
+	sudo apt install libasound2-dev libpulse-dev
+    sudo apt install libsdl2-2.0-0 libsdl2-image-2.0-0 libsdl2-dev libsdl2-image-dev
+    export SDL_AUDIODRIVER=pulseaudio
+	
+
+python3 -m venv /home/jonatasd/src/basic
+
+/home/jonatasd/src/basic/bin/pip install pcbasic
+
+# create
+python -m venv myenv
+
+# activate
+source myenv/bin/activate
+
+# install pkg
+pip install package_name
+
+# deactivate
+deactivate
+
+# delete
+rm -rf myenv  # On macOS/Linux
+rmdir /s /q myenv # On Windows
+
+
+Releases
+https://github.com/robhagemans/pcbasic/releases
+https://github.com/robhagemans/pcbasic/releases/download/v2.0.7/python3-pcbasic_2.0.7_all.deb
+
+sudo apt install ./your_file.deb
+
+
+https://pypi.org/project/pcbasic/
+
+https://robhagemans.github.io/pcbasic/doc/2.0/
+
+    sudo apt install dosbox # For Debian/Ubuntu-based systems
+    # Or use your distribution's package manager
+	
+
+sudo apt update
+apt list --upgradable
+sudo apt upgrade
+
+
+
+
+WSL
+(myenv) jonatasd@XO-PC-9P25023GT:~/src/basic$ pcbasic
+[10:58:30.0098] INFO: Could not initialise video plugin `sdl2`: Could not initialise SDL2: b'dsp: No such audio device'
+[10:58:30.0098] WARNING: The `pygame` interface is deprecated, please use the `graphical` interface instead.
+[10:58:30.0098] INFO: Could not initialise video plugin `pygame`: Module `pygame` not found
+[10:58:31.0130] WARNING: Could not open audio device: b'Audio subsystem is not initialized'
+

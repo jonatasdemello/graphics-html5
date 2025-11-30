@@ -9,16 +9,16 @@
  */
 function convert(num) {
     if (num === 0) return 0;
-    
+
     // Get the absolute value to handle negative numbers
     const absNum = Math.abs(num);
-    
+
     // Count the number of digits
     const digits = Math.floor(Math.log10(absNum)) + 1;
-    
+
     // Divide by 10^digits to get a number between 0 and 1
     const result = absNum / Math.pow(10, digits);
-    
+
     // Preserve the sign
     return num < 0 ? -result : result;
 }

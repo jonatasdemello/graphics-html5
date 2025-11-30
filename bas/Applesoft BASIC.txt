@@ -1,0 +1,507 @@
+﻿
+https://www.apple2.org/faq/FAQ.applesoft.html
+
+
+Fri, 21 Nov 2008 02:41:58 -0800
+
+    Log in / create account
+
+Navigation
+
+    Home
+    Wiki Home
+    Apple ][ Web Reference
+    Original 'CSA2' FAQ
+    Recent changes
+    Random page
+    Help
+    Donations
+
+    Powered by MediaWiki
+    Apple II dot org
+
+	
+Applesoft BASIC
+From A2wiki
+Jump to: navigation, search
+Navigaton History:
+Applesoft BASIC
+
+From: tdiaz-a(in_a_circle)-apple2-dotsero-org (Tony Diaz)
+Newsgroups: comp.sys.apple2,comp.answers,news.answers
+Approved: news-answers-request@MIT.EDU
+Followup-To: comp.sys.apple2
+Subject: Applesoft BASIC Frequently Asked Questions (FAQ)
+
+Archive-name: apple2/asoft
+Posting-Frequency: monthly
+Last-modified: August 21 2007
+Version: 0.27
+URL: http://apple2.info/wiki/index.php?title=Applesoft_BASIC
+
+The Applesoft BASIC FAQ
+
+NOTE: this FAQ is in beta form, and is still being written. Expect a few minor continuing changes in its layout, content, and correctness. Most info should be correct-- I'd like to be notified of any problems noted in the FAQ.
+
+This document attempts to give a detailed and correct set of answers about Applesoft BASIC, an interpreted programming language for the Apple II series of computers. It is also intended as a reference for commands and the like; it may at once time in the future include tutorials, but does not do so now.
+
+DOS 3.3 and ProDOS command line commands are not included in this FAQ; they have a FAQ of their own at http://apple2.info/wiki/index.php?title=DOS. I do cover some disk I/O from within Applesoft programs, however, in this FAQ.
+
+Copyright (c) 1998-2007 by Tony Diaz (email: tdiaz-a(in_a_circle)-apple2-dotsero-org), all rights reserved. This document can be freely copied so long as 1) it is not sold, 2) any sections reposted elsewhere from it are credited back to this FAQ with the FAQ's copyright info and official WWW location (URL: http://apple2.info/wiki/index.php?title=Applesoft_BASIC) left in place.
+
+This FAQ may not be sold, bundled on disks or CD-ROMs, reprinted in magazines, books, periodicals, or the like without prior consent from the maintainer, Tony Diaz. Exceptions are explicitly granted for Juiced.GS and _The_Lamp. Email me for permission otherwise.
+
+Big thanks to Nathan Mates, the previous maintainer of this comp.sys.apple2 FAQ, for allowing it to live on after his departure and anyone who took up that mantle before him.
+
+
+Disclaimer: I've tried to make this FAQ as accurate as possible, but there's the chance that it's not perfect. I apologize in advance for any slipups. Until I am confident that all information is 100% accurate, you are advised that you are following all info at your own risk. I will fix any problems found with this FAQ, but will not be held liable for the results of problems.
+
+
+Contents
+
+    1 Section 1: General Intro to this FAQ and Applesoft Environment
+        1.1 Statement of Purpose
+        1.2 Conventions and the like used by this FAQ:
+        1.3 Determining which OS is running, etc.
+    2 Section 2: General language reference
+        2.1 Numeric Expressions and Assignments:
+        2.2 String expressions and Assignments
+        2.3 Flow of control
+        2.4 Variable names & conventions
+        2.5 Memory Management/Use:
+    3 Section 3: Input/Output to Text and Graphics screens
+        3.1 The 'PRINT' command and text formatting
+        3.2 Mousetext and special 80-column text output
+        3.3 Text Input from the keyboard
+        3.4 Low Resolution (Lores) graphics
+        3.5 High Resolution (Hires) graphics:
+        3.6 Hires Shapes
+        3.7 Double High Resolution (Double Hires) graphics:
+    4 Section 4: Miscellaneous tasks
+        4.1 Sound Generation
+        4.2 Reading paddles/joysticks
+        4.3 Program comments
+        4.4 Internal Data Storage.
+        4.5 Error Handling
+        4.6 Random Numbers:
+    5 Section 5: Disk I/O
+        5.1 General intro and simple commands
+        5.2 Binary Files
+        5.3 Text File I/O
+    6 Section 6: Error codes and messages
+        6.1 DOS 3.3 Error Codes
+        6.2 ProDOS Error Codes
+    7 Section 7: Miscellaneous Questions
+        7.1 How do I list to a file or transfer Applesoft to another platform?
+
+[edit] Section 1: General Intro to this FAQ and Applesoft Environment
+[edit] Statement of Purpose
+
+This document is not (yet?) a tutorial, instructions on how to program, or the like. It is assumed that the reader has at least a basic introduction to programming, such as variables, flow of execution, as well as a general understanding of either DOS 3.3 or ProDOS for the Apple II.
+
+With the proliferation of Applesoft BASIC addons in the 70s, 80s and 90s, this FAQ does not attempt to cover any of them, though it may make reference to a few of them from time to time. The only "variants" to Applesoft that will be commented on in this FAQ are (1) the version built into the ROM of all Apples since the ][+, (2) the ROM version running under DOS 3.3 and 100% compatible clones, (3) the ROM version running in conjunction with ProDOS's BASIC.SYSTEM. Most of the time, these versions are nearly identical, so Applesoft information should be regarded as applying to all 3 unless otherwise specified.
+
+A few versions of Applesoft, namely the ones loaded from cassette and disk on systems without Applesoft in ROM, lack a few features. Those differences may be noted from time to time, but those notations may not be complete yet.
+
+About the only change in the ROM versions of Applesoft was the inclusion of lowercase support starting with the //c and then spreading to the enhanced //e, GS and IIc+. With that, Applesoft could be entered in lowercase, but everything except for strings which remained untouched would be uppercased. Also, the //c, IIc+ and GS have no cassette port, so the cassette functions were removed. Support for double lo-res was added instead.
+[edit] Conventions and the like used by this FAQ:
+
+Applesoft commands and the like are shown in uppercase and usually within single quotes ('). For example, 'PRINT "HELLO, WORLD"' is the way for the computer to announce to the world that it's alive, and also a simple test of Applesoft. All Applesoft keywords are noted in uppercase, and should be a hypertext link to the fuller description in this FAQ. Optional parts of commands are noted in brackets '[]'. Words in lowercase are usually intended to represent variables, expressions, line numbers, etc.
+[edit] Determining which OS is running, etc.
+
+First, make sure you are at the Applesoft ']' prompt. Type 'CATALOG' (case sensitive, even if you're running on a //c, enhanced //e, GS or the like) and hit return. If you got a '?SYNTAX ERROR' and a beep despite typing it correctly, you're likely not running under any operating system. If you get a disk listing of files, you're under DOS 3.x or ProDOS. A DOS 3.x (3.2, 3.2.1 and 3.3, though 3.3 is by far the most common) catalog would tend to look like
+
+
+DISK VOLUME 254
+
+    A 003 HELLO
+    I 003 APPLESOFT
+    B 006 LOADER.OBJ0 
+
+[Snip...]
+
+while a ProDOS would tend to look like (in 40-column mode, these would be wrapped to two lines)
+
+BINSCII.TXT TXT 12 20-AUG-96 20-AUG-96 3:14 5645
+
+Alternatively, you can type 'cat' (ProDOS is not case sensitive; also this command does not exist in DOS 3.3 in any capitalization sequence). If you get a disk catalog (and only 40 columns wide), this is ProDOS. A '?SYNTAX ERROR' is a sign of DOS 3.3.
+
+1.4 Immediate mode vs. Deferred execution
+
+Most Applesoft statements can be typed at the ']' prompt, and they will be executed immediately. You can set variables, do math, draw graphics, and a fair number of other things directly. However, stuff like inputting from the user, most text disk input/output and the like can only be done from within a running program; an '?ILLEGAL DIRECT ERROR' will be generated by commands not runnable from the prompt. If you prepend a 'POKE 51,0' to a command, this will trick BASIC into thinking your program is running and not complain about immediate mode. DOS commands may be much harder to fool.
+
+Multiple commands can be entered on one line of immediate or deferred mode by placing a colon (':') between them. For example, 'A=5: B=6' sets the values of both variables. [Exception: the 'HIMEM: memaddr' and 'LOMEM: memaddr' statements must have the colon as part of their actual syntax]
+
+1.5 Entering and running programs
+
+From immediate mode, if a line starts with a line number, it goes into the current program and is not immediately executed. Valid line numbers are 0 through 63999; lines are always kept in sorted order. As there are no such things as named subroutines or the like, choices for line numbering are somewhat important. It is usually a good idea to use a spacing of 5 or 10 between line numbers to make inserting code later on much easier-- renumbering programs can be a headache. The DOS 3.3 System Master disk came with a renumber program on it ('RUN RENUMBER' to install it and get some information on how to use it), but unfortunately ProDOS's BASIC.SYSTEM doesn't have that functionality, though the disk bundled with Apple's "BASIC Programming with ProDOS" book has a similar program.
+
+If a line does not start with a line number, it is immediately executed, should it be a command that can be run from the prompt. [GOTO, GET, INPUT, and a few others won't work from the prompt.] Any errors detected will be noted. However, errors (even syntactic) are not caught within lines you enter into the current program-- they're only caught at runtime.
+
+Due to the size of the input buffer, a single line of the program is limited to 255 characters. [Applesoft will start beeping when you get to 248 characters]. There are several strategies for getting around this. (1) When typing a line, use '?' instead of 'PRINT'-- it'll be expanded to the full 'PRINT' when parsed. (2) Use no unneeded spaces-- only type them if they're in the middle of a string (" ") or a DATA statement. They are not needed to separate terms in mathematical expressions, etc. (3) Split the line into several lines.
+
+When parsing lines without spaces, Applesoft looks for reserved words first and separates them automatically, unless they're in the middle of strings. For example, the following (nonsense) line of code '10IFPRINT"HINPUT TETHEN"GOTOHLIN56=5' will appear as '10 IF PRINT "HINPUT TETHEN" GOTO HLIN 56 = 5'
+
+The command 'NEW' clears out any Applesoft program in memory and clears the contents of all variables; it is not easily undoable. 'RUN' starts the current program after clearing the contents of all variables, starting at the lowest numbered line, and continues until 'STOP', 'END', flow of execution reaches the end of the code, or an unhandled error is encoutered. Altenatively, you can use 'RUN linenum' to clear all variables and start the program at line #linenum. You can also do 'POKE 51,0: GOTO n' to start a program at line n without losing the contents of the current variables.
+
+To delete a single line of code, you can type simply the line number and press return-- that 'replaces' it with an empty line.
+
+There is minimal text mode support for line editing. When you 'LIST' a program, you can press the 'esc'[ape] key and then use the diamond of I/J/K/M (capitalization not important on an enhanced //e, //c, IIc+ and GS; may be necessary on an unenhanced //e) or the arrow keys (//e, //c, GS and IIc+ only) to move around the screen and the spacebar to move out of the movement mode. [The ][+ also exits escape mode with the right or left arrows.] Once out of movement mode, the right arrow can be used to "type" whatever character the cursor is on. This is very handy for fixing part of a line, inserting or deleting sections.
+
+When 'LIST'ing off a program, you'll notice that the default list has quite a lot of padding on the right and left margins, which may make it hard to "retype" a line without running afoul of the 255 character limit. However, if you type a 'POKE 33,33' before 'LIST 'ing, (or you can use 'POKE 33,72' if you're in 80-column mode), you'll signify to Applesoft that you don't want the big margins, which'll help. [Unenhanced //es must have an even screen width in 80-column mode; 'POKE 33,73' will work fine on an enhanced //e, //c, IIc+ and GS]
+
+The 'TEXT' command will restore the screen to the normal margins.
+
+
+[edit] Section 2: General language reference
+[edit] Numeric Expressions and Assignments:
+
+All variables can be set by '[LET] varb = expression'. The 'LET' is totally optional, and is usually omitted as being redundant.
+
+For integer and floating point (real) math, normal arithmatic precedence and operations are followed. Thus, 'A=5+2*3' will set A to 11, not 21, as that expression with (redundant) parentheses is 'A=5+(2*3)'. Exponentiation can be performed with the '^' operator ('A=2^3' sets A to 8), but there is no remainder (modulus) operator like in other languages.
+
+The '=' operator behaves as an assignment the first time it's encountered in an assignment, and equality at all other times. Thus, 'A=B=C' sets A to 1 (true) if B is equal to C, 0 otherwise. This is significantly different from a number of other languages. However, 'IF A=B THEN x' does not set the value of A to B. The "not equals" test is '<>' or '><'.
+
+Integers are automatically promoted to reals when needed. To do the reverse, use 'varb=INT(expr)'. That converts the value to the highest integer less than or equal to the expression. Integer values have a fixed range of -32767 to 32767, so trying to convert from outside that range will result in an error.
+
+Boolean operators are also available-- integers and reals are treated as true or 1 if not zero, and false or 0 if zero. Thus, 'A%=5.0 AND 2' is true. The only boolean operations available are 'NOT', 'AND' and 'OR'
+
+Bitwise operations are not directly supported, even on integers.
+
+Operators have the following precedence; things within the same precedence level are evaluated left to right:
+
+    Highest precedence: () [parentheses]
+    ^ [exponentiation]
+    - [unary minus]
+    * [multiplication], / [division]
+    + [addition], - [subtraction]
+    = [equal], <> or >< [not equal], < [less than], > [greater than],
+    <= or =< [less than or equal], >= or => [greater than or equal]
+    NOT [logical complement]
+    AND [logical AND]
+    Lowest precedence: OR [logical OR] 
+
+Applesoft is somewhat concerned about variable types-- if you try and directly assign a string to a number or vice versa, it'll stop and complain. There are single-character conversions such as 'varb$=CHR$(varb2)' and 'varb=ASC(varb2$)'. Also, for string to number coverstions, there is 'var$=STR$(expr)' (converts number to string form) and 'val=VAL(expr$)' (converts first number found in string to numeric value)
+[edit] String expressions and Assignments
+
+Strings have their own sets of operations-- the '+' operator acts to concatenate strings, so 'A$=B$+C$' sets A$ to the full text of B$ followed immediately by the full text of C$, no spaces in between. [Also assuming that the resulting size of A$ is under the limit of 255 characters per string, otherwise there'd be an error.] You can also use '=', '<>' and the rest of the arithmatic comparisons on strings. Note that string comparisons are case sensitive, and normal ASCII order is used. The end of a string is considered to be less than any character, in case of comparing strings of unequal length.
+
+The individual characters in a string are not immediately accessible, but can be gotten without too much trouble. 'LEN(expr$)' is the length in characters of a string (can be a single string or any expression of string type); 'LEFT$(varb$,n)' returns the n leftmost characters in the variable, if n is greater than the length of the string, it returns the entire string. Similarly 'RIGHT$(varb$,n)' is the n rightmost characters. 'MID$(varb$,start[,len])' starts 'start' characters into the string, and returns the "len" characters after that, or the rest of the string if len is not specified. If "start" is greater than the length of the string, the null string is returned.
+[edit] Flow of control
+
+Applesoft programs when 'RUN' start at the lowst numbered program line with no variables set and proceed sequentially through the program. Variables' contents are retained after the program exits until the program's code is changed. While Applesoft does not have while loops, named subroutines or the like, you can do all of them with what Applesoft does have to offer.
+
+The most basic flow of control statement is the 'IF x THEN y' clause. Expression x is evaluated, and if true, then the rest of the line is parsed. If x is false, then control skips to the next line of code. No parentheses are needed around the x clause, but they don't really hurt. There is no else clause in the language, but it is easy to get around that-- put a GOTO at the end of the IF line to skip the next line(s) of code, where the "else" clause is.
+
+'IF x THEN GOTO n' can also be written as 'IF x GOTO n' or 'IF x THEN n', but this abbreviation can only be done for 'THEN GOTO', no other statements.
+
+'GOTO n' transfers control to line n, if it exists. [And an error if it doesn't.] 'GOSUB n' goes to a subroutine, and 'RETURN' goes back to the site of the most recent GOSUB. GOSUBs can be nested up to about 12 or 16 deep, so recursion should be avoided if possible. The 'POP' statement cancels the last return address, and continues on to the next statement. [Essentially changing the last GOSUB to a GOTO.]
+
+GOSUBs should be balanced by RETURN or POP, as there is only a limited amount of space to store return addresses. If you try and RETURN or POP more times than you've GOSUB'd, you'll get an error.
+
+'FOR varb = start TO end [STEP increment]' sets up a loop. You can only loop over reals; the increment defaults to 1 unless specified. The loop stops when 'varb' is greater than 'end' if 'increment' is positive, or less than 'end' if 'increment' is negative. The counter variable 'increment' can be zero, in which case this is an infinite loop. It is legal to modify the loop variable in the middle of a loop. The contents of a FOR loop are always executed at least once, since it only exits from the NEXT statement.
+
+In addition, the start, end and increment parameters are evaluated only once, at the start of the loop, so any changes to them will not be reflected.
+
+NEXT [varb][,varb2[,varb3]]' adds the step to the looping variable and goes back to the top of the FOR..NEXT loop if it should continue. The specification of the variable is optional-- if omitted, Applesoft will use the innermost active loop to deal with. Crossing loops such as 'FOR I=1 TO 5: FOR J=1 TO 3: NEXT I: NEXT J' will cause errors, and generally are a bad idea. However, if specified with the innermost loop variable to the left separated by commas, it is doable: 'FOR I=1 TO 5: FOR J=1 TO 3: NEXT J,I'
+
+Loops should be terminated with a 'NEXT', not a GOTO, since there is a limited amount of space for tracking active loops, and the loop is still active. One recommended solution is to change the loop variable to a terminal value, do the 'NEXT' and then do whatever you want.
+
+'END' will stop execution of the currently running program and cleanly exit to the Applesoft prompt. Contents of variables are still set and can be read. 'STOP' halts the currently running program with a message; you can use 'CONT' from the prompt to attempt to restart where you left off. In either case, a 'POKE 51,0: GOTO n' will attempt to jump to a specified line in the code. [The 'POKE 51,0' tricks Applesoft into thinking a program is running; INPUTs and other deferred mode only commands won't work from the prompt without that.]
+[edit] Variable names & conventions
+
+All variables are identified by their first two characters and an optional extension denoting the variable type. The first character must be a letter, A-Z. The second can be blank (giving essentially a single-letter variable name), A-Z, or 0-9. All continuing characters ([A-Z0-9]) past the first two are ignored-- NA is the same as NAME. The total variable name has a maximum of 238 characters. [Applesoft's 236 character per line limit will restrict what you could do with such long names.]
+
+After the variable name, a character can be used to override the default type of floating point [range of approx +/- 1.7*10^38 to +/-2.29388*10^-39] variable. Use '$' to specify a string (255 characters maximum), or '%' for an integer (16 bits, with range -32767 to 32767). These three types are independent-- assigning to NM% will not affect NM$ or NM. Also, all variables are assumed to be 0 (real and integers) or an empty string if they are accessed before a value is written to them.
+
+When you type in your program, keywords are parsed before your variable names, so do not use a keyword at anywhere in the variable name. 'FORMATION=5' parses as 'FOR M AT I ON =5' which won't work when run.
+
+To extend these basic types, you can make arrays. To do this, do a 'DIM varname(size [, size [,size...]])' before using the array, where size is an integer size greater than zero. Unlike C, DIM A(10) gives you eleven places: A(0), A(1), A(2)... A(10). The values in each position in the array can be set or read by giving the array variable name, and the subscript in parentheses; this subscript can be specified on the fly. For example 'DIM A(10): FOR X=1 TO 10: A(X)=X: NEXT'. The subscript is converted to an integer value on accessing, as the above example shows.
+
+The size does not need to be a constant in the code-- you can do 'A%=50: DIM B(A%)'. Arrays can be of integer, real, or string type. The presence of an array does not affect the basic (nonarray) variable: A(x) for all x is independent from A.
+
+If an array is referenced before being DIM'd, Applesoft assigns the array a size of 11 (0-10), and it cannot be redimensioned.
+
+You can make multidimensional arrays by specifying them in the DIM; a 3x3x3 integer array can be created by doing 'DIM B%(2,2,2)'. Please note the section on Applesoft's memory management, as trying to allocate too much memory for an array can overflow Applesoft's pool of at most 35K.
+[edit] Memory Management/Use:
+
+Applesoft BASIC is rather poor in its memory management, mostly at the cost of backwards compatability-- a standard (no machine-language assistance) program that runs on a //e will run on any other Apple II with at least 64K. The downside is that no memory past the first 64K is recognized or usable. The operating system and other reserved blocks of memory (text screen, system globals, etc) leave only 35K ($800-$9600) available for both your program and all variables. The Hires graphics screens will use 8K each from that 35K; lores uses the text screen at no memory penalty.
+
+Space is used for storing variable names and their contents in memory-- an integer will use 2 bytes for the actual data, and 2-3 for the name. Beyond the name overhead, array Integer variables use 2 bytes of memory each, reals 5.
+
+Strings are dynamically allocated, and use their length plus 1 in bytes. If a lot of string manipulations are done, the space used by the old versions of the strings are not recycled-- they remain in memory. Thus, periodic garbage collections can be necessary. The FRE() statement was built into Applesoft to both report on memory management and perform garbage collection. 'FRE(x)' (parameter ignored, though 0 or 1 is customary) will report how much memory is free-- 'AVAIL=FRE(1)' sets the result to a variable and does the garbage collection. If the free memory is greater than 32K, it will be returned as a number less than zero; add 65536 to that to get the real number.
+
+This memory operation may take many seconds to perform, leaving a user to wonder what is happening. If this happens, it may be to your advantage to do more FRE(0)'s in your code, thus doing more (hopefully smaller) compactions. Alternatively, under ProDOS's BASIC.SYSTEM, 'PRINT CHR$(4)"FRE"' is a much faster version. [There were several addon machine language packages for faster FREs under DOS 3.3, but that's outside of the scope of this FAQ.]
+
+To reserve off some space for your own purposes, you can use the 'HIMEM:' and 'LOMEM:' statements. The two define the top and bottom of the memory pool Applesoft uses for variable storage. To read the current value of lomem, use 'PEEK(106)*256+PEEK(105)', himem can be read by 'PEEK (116)*256+PEEK(115)'. Normally, lomem is the top of your basic program, and himem is the highest available address under the OS and its buffers; you should not lower the lomem or raise the himem unless you are darn sure what you're doing. Also, it's usually a good plan to change the himem or lomem at the start of your program before using any variables.
+
+ProDOS's BASIC.SYSTEM grabs space on the fly for things, so moving HIMEM under ProDOS may be a risky job. In all cases, it must be a multiple of 256 under ProDOS.
+
+
+[edit] Section 3: Input/Output to Text and Graphics screens
+[edit] The 'PRINT' command and text formatting
+
+PRINT (can be abbreviated as '?' when typing, but will be expanded when LISTed) will print string constants ('PRINT "HELLO"'), numeric constants and expressions ('PRINT 2+2'), strings ('PRINT NAME$'), reals ('PRINT FOO'), or integers ('PRINT SP%'). It can also print several of these at once if semicolons (';') or commas are between the sections: 'PRINT "The Answer:"; 2+2'. Semicolons are not really needed before the start of a string constant or after them-- 'PRINT D$"CLOSE"' is perfectly legal.
+
+If a semicolon is present at the end of a PRINT statement, the 'default' of a concluding carriage return is surpressed. 'PRINT's are not really buffered-- they appear as soon as ready, even if the trailing carriage return is surpressed. If a PRINT exists by itself, it will print a 'carriage return' and go to the left edge of the next screen row, scrolling if necessary. The 'SPEED=n' command (x=0..255, 255 is default of no delay, 0 is rather glacial) can be used to insert a pause after each and every character outputted.
+
+A comma present separating items jumps to the next 'tab' stop, which are located 16 columns apart at columns 1, 17, 33, etc. The second tab stop exists only if column 16 for that line is empty (i.e. filled with spaces), and the third only if columns 24-32 are empty.
+
+For floating-point values, scientific notation is used for values with absolute value less than 0.01 or if there are more than 9 digits in front of the decimal point.
+
+'PRINT's of numeric values are always left-justified, and the output will take up however much space is needed to represent it. Strings similarly take up as much room as necessary and no wordwrapping is done. No print formatting (such as the 'PRINT USING' of other Basics) for other forms is built in; you'll have to write your own if this is needed.
+
+There are a few commands to do other fun things with the text output. 'INVERSE' will set text to come up in the reverse of the normal background and foreground text colors. [All text output from Applesoft is monochrome, but the GS has user-definable foreground and background colors, versus the fixed white foreground, black background of previous Apple II models.] If the 80-column card is not active, 'FLASH' will set the text to blinking. [See next section for special notes on getting flashing text working when 80-column cards are active.] 'NORMAL' will set the text to appear normal again. All three do not affect what's currently on the screen, but only affect future text output.
+
+'HOME' will clear the screen and leave the cursor in the top left. 'VTAB n' will set the cursor's vertical position on the screen-- 1 is the top row on the screen, 24 is on the bottom. 'HTAB n' similarly sets the horizontal position of the cursor from columns 1 to 80. [80-column mode on an unenhanced //e tends not to support HTAB well past the 39th column; you may want to do 'POKE 1403,n' to set to column n-1.
+[edit] Mousetext and special 80-column text output
+
+Enhanced //es with 80 column cards, //cs, IIc+s, and IIGSs have the ability to display a special set of characters onscreen, useful for text menuing/windowing, and the like. To enable it, make sure that the 80 column card is on (use PR#3), set INVERSE text, and then set the mousetext mode on with a 'PRINT CHR$(27)'.
+
+Once that is done, you can use any of the mousetext characters, which are A-Z, and the punctuation "@[\]_\". [Sorry, HTML does not really have Mousetext, so you're going to have to determine what they look like for yourself.] To exit Mousetext mode, do 'PRINT CHR$(24)'
+
+Also, you can get FLASHing text under 80-columns if you're willing to not use any Mousetext characters at the same time. POKE 49166,0 sets any Mousetext characters onscreen to flashing charactes, and 49167,0 turns all flashing text to Mousetext.
+[edit] Text Input from the keyboard
+
+For text input, there are three main methods-- INPUT, GET, and some fun with PEEKs and POKEs. The first two are blocking methods that stop the current program and wait for input to be typed in; the third hits the hardware on the machine to see if a character has been typed and get the currently typed character.
+
+INPUT is the most powerful of the lot. It can get integers, reals, and strings, as well as getting several at once. 'INPUT A' displays a '?', flashes the cursor and lets the user type in a number. 'INPUT A,B' wants two numbers, separated by a comma. If the user hits return instead of a comma after the first number, a '??' will appear and the user can type the next number. Strings and integer variables can be similarly inputted. You can also use a string constant as the first parameter of an INPUT to give a line of text to be printed before anything is input: 'INPUT "What is your name?";NAME$' will do just that.
+
+Note: INPUT can be very poor about parsing multiple strings, numbers, and the like. You may wish to program your own ones that have much better functionality.
+
+'GET' is like INPUT except that it only waits for one character, and returns immediately on getting that without printing it to the screen. Thus, 'GET A$' is an excellent way of waiting for any key, or building a better INPUT, etc. GETting a real or an integer is not really recommended-- if the user types a non-numeric character (0-9, +, -, ,, E, etc), the program will stop with an error.
+
+The final, and most on the metal method, is to read the 1-character input buffer yourself. If the return value from 'PEEK (49152)' ('PEEK (-16384)') is identical, but uses one more character) is less than 128, nothing has been hit. If it is greater than 128, the key hit has ascii value of the return value minus 128. Thus, 'A$=CHR$(PEEK (49152)-128)' will set A$ to the key that was hit. 'POKE 49168,0' ('POKE -16368,0' is also identical) will tell the system that you've dealt with the keypress; if this is not done, it'll continually report that one key down.
+
+It is also possible to combine this: 'WAIT 49152,128' (identical in function to 'WAIT -16384,128') pauses the system without flashing the cursor until a key is hit without eating the key, so an immediate GET will grab the key just hit.
+[edit] Low Resolution (Lores) graphics
+
+This graphics mode is always available, and provides 40x40 + 4 lines of text or 40x48 graphics on the screen with 16 fixed colors available. It does this by replacing each character on the text screen with two blocks. [Since the screens are in the same memory location, you can use Lores graphics commands to put stuff on your screen. Experiment around!]
+
+The Lores graphics screen can be turned on in "mixed" mode of 40x40 with 4 lines of text at the bottom with the 'GR' command. This clears all of the 40x40 field to black, and puts the current prompt line in the space at the bottom. 'COLOR=n' sets the color to the appropriate selection. Valid colors are 0 (Black), 1 (Magenta), 2 (Dark Blue), 3 (Violet), 4 (Dark Green), 5 (Dark Gray), 6 (Medium Blue), 7 (Light Blue), 8 (Brown), 9 (Orange), 10 (Light Gray), 11 (Pink), 12 (Bright Green), 13 (Yellow), 14 (Aqua) and 15 (White). If the value for your color is greater than 15, only the remainder when divided by 16 is used, so 'COLOR=16' is equivalent to 'COLOR=0' and the like.
+
+'PLOT x,y' sets the specified point to the current color. Coordinates start with 0,0 in the top-left corner of the screen, and increase towards the bottom and right. While there is no arbitrary lores line function, there is functionality to draw horizontal or vertical lines. They have the following form: 'HLIN x1,x2 AT y' and 'VLIN y1,y2 AT x'
+
+'SCRN(x,y)' will return the color (0-15) of the pixel at coordinated x,y.
+
+'TEXT' will get you out of Lores or hires graphics mode (with a lot of ugly garbage where your lores screen was; you may want to do a 'HOME' to clear the screen after switching out.
+[edit] High Resolution (Hires) graphics:
+
+Apple IIs with at least 16K of memory (24-32K if you want to use an OS as well) have the ability to draw on a 280x192 hires graphics screen; 24K (36-48K if an OS is desired) for the second independent screen. All Apple IIs capable of drawing that can draw in 4 fixed colors; past the first few revisions of the Apple ][ motherboard, there are 6 fixed colors. [Technically 8 colors, but since there are two slightly different whites and two blacks, that's 6 real colors]
+
+Hires is also a root beer, but that's outside the scope of this FAQ. [And no, I don't have that picture online.]
+
+The 'HGR' command will turn on the first hires screen to a mixed 280x160 mode with 4 lines of text at the bottom, and clears the graphical section to all black. [It may not move the current prompt down there, so hit return if you seem to have lost the cursor.] 'HCOLOR=n' sets the color for drawing. Valid color numbers are 0 (Black 1), 1 (Green), 2 (Violet), 3 (White 1), 4 (Black 2), 5 (Orange), 6 (Blue), 7 (White 2).
+
+The graphics drawing commands are much more intelligent than in lores-- you can draw lines of any angle, as well as points. 'HPLOT x,y' turns on that pixel. 'HPLOT x1,y1 TO x2,y2 [TO x3, y3 [TO x4,y4]]' draws a line or series of lines in a row; you can also do 'HPLOT x1,y1: HPLOT TO x2,y2' and the like. Coordinates start with 0,0 in the top-left corner of the screen, and increase towards the bottom and right.
+
+Colors have some strange properties-- colors 1 and 5 can only appear in even numbered columns, 2 and 6 only in odd-numbered columns. Any two adjacent "on" pixels will appear white. [This is all due to the hardware display methods]
+
+'HGR2' turns on the second hires screen, and clears it to black. It also displays all of it (280x192) with no text visible at the bottom. [There's no easy way to get both the second hires screen and 4 lines of text onscreen in a "mixed" mode as with lores and the first hires screen without relocating the BASIC program in memory, some loops to do memory copying and the like.] You can draw to the second hires screen the same way as with the first-- the commands are identical. By tweaking softswitches and other locations, you can draw on one page while displaying the other, and other fun tricks.
+
+For the technically inclined, some more info about the single (regular) hires screen. It's 280x192 pixels in size, taking a $2000 byte chunk of memory starting at either $2000 ("page 1") or $4000 ("page 2"). It's not linearized either, and has some 'holes' in the display to make it fill up to $2000 bytes in size. [Each row takes 40 bytes, so after 3 rows, there's 8 unused bytes to make it an even 128 bytes]
+
+There are 6 truly distinct colors, with 2 duplicated (2 whites and 2 blacks). Here's a general rundown of the rules: 2 (or more) adjacent 1 bits display as white. Next, a pair of bytes hold 14 pixels horizontally, with the high bits in each not counting as pixels. Bits are displayed from the least significant in each pair, so an 01 in $2000 is the column 0 of row 0 on the first hires screen.
+
+A 0 in an even numbered column and a 1 immediately to its right (assuming that 1 is not part of a white chunk) is green or orange. [More on that in a second] Similarly, a 1 and 0 in the same position gives violet or blue. If there's two 0s in such a pair, it'll come out as black.
+
+For Apple IIs past the first few revisions of the Apple ][, the high bit of each byte shifts colors up for each pixel contained within to the second palette of 4 colors. Black and white are duplicated between the two, but green becomes orange and violet becomes blue if the high bit is set.
+
+'TEXT' will get you out of Lores or hires graphics mode.
+[edit] Hires Shapes
+
+The hires screens do have the ability to draw and erase "shapes" (consisting of simple vectors). These are are not the same as bitmapped graphics like on other systems; simply vector based. [This section is not quite yet written. Please be patient. -NJM]
+[edit] Double High Resolution (Double Hires) graphics:
+
+This mode is not directly accessible from Basic, as the memory map for it is unlinearized and split between the first 64K blocks of memory. [Thus it requires an enhanced //e w/ extended 80 column card, //c, IIc+ or GS to do.] You'll need a machine language addon package to use this mode; several existed, such as Beagle Bros' Beagle Graphics. (Not yet legally available online to my knowledge)
+
+
+[edit] Section 4: Miscellaneous tasks
+[edit] Sound Generation
+
+A simple default system beep can be done with a 'PRINT CHR$(7)' (control-G); Applesoft BASIC can also only do simple clicks. 'PEEK(49200)' will produce a click every *other* time it's done; 'POKE 49200,x' is more erratic and either produce essentialyl silence or a click every time. [Addresses are accessed twice on a POKE, but only once with a PEEK.] Some claim that by oddball combinations of accessing this softswitch (and usually in mathematical operations) that you can get something resembling sound and/or music out of the speaker. However, these, are wild hacks, and not very usable or easy to generate/modify. Other beep tones and music require machine-language subroutines which are currently beyond the scope of this FAQ.
+[edit] Reading paddles/joysticks
+
+Up to 4 single-axis analog devices can be connected to an Apple II; these can be either paddles or 2-axis joysicks. The 'PDL(n)' command reads a single axis. n=0 for the first paddle or the horizontal axis of a joystick, n=1 for the second paddle or the vertical axis of a joystick (n=2,3 for the third and fourth paddles or second joystick). PDL() returns a value between 0 and 255; the 'center' is approximately 127. There should be a slight pause between calls to PDL to allow the hardware time to recover from the analog reading and prepare for another. A quick FOR-NEXT loop does the job nicely: 'XP%=PDL(0): FOR PD=1 TO 10:NEXT: YP%=PDL(1)'
+
+Using a paddle number greater than 3 is a BAD idea-- you'll blindly stomp over various softswitches, which can have very disastrous effects on your computer.
+
+Button #n (n==0..2) can be read with a 'PEEK (49249+n)'. If the returned value is <127, it's being pressed or is not connected. There is no way to tell in Applesoft whether a 'button down' is due to a paddle/joystick or the corresponding apple key. [Open-apple (command) on the keyboard appears like button 0, closed apple (option) appears like button 1]
+[edit] Program comments
+
+Anything following a 'REM' command until the end of the line is regarded as a comment, even if it's valid code. 'REM GOTO 500: GOTO 500' is just a comment, and neither GOTO will work.
+[edit] Internal Data Storage.
+
+Applesoft allows you to store a number of numeric or string constants within your code and get them. The format for storing them is 'DATA const1[,const2[,const3]]', with string constants enclosed in quotes. To read them, use 'READ varb1[,varb2[,varb3]]'. The position of the DATA and READ statements in the body program doesn't matter, but you should READ out elements from your DATAs with the correct variable type to avoid an error.
+
+The DATA list is sequential access only-- it starts at the first DATA in the code and works its way down, one element at a time. The 'RESTORE' command resets the DATA list pointer to the first DATA statement in the program. [Unlike other BASICs, there is no way to restore to an arbitrary data index number or data line number; you'll have to manually do other things.]
+[edit] Error Handling
+
+Applesoft lets you define a section of your code that'll be executed when an error occurs. Use 'ONERR GOTO line' to jump to that line when an error occurrs; only one line can be specified. At that time, use 'PEEK(222)' to get the error code number. 'RESUME' will attempt to go back to where the error happened if you've dealt with it, however, if in the middle of a FOR-NEXT loop or a subroutine call, you cannot use RESUME correctly without running a short machine-language patch for a bug.
+
+Also note that due to a bug, any program statements after the onerr are ignored.
+
+'POKE 216,0' will cancel any pending ONERR. It is recommended that thisPOKE be the first statement of your error handling routine, to prevent any errors in the error handler from calling the error handling again.
+[edit] Random Numbers:
+
+Applesoft's 'RND(x)' function returns a pseudo-random number based on the value of x. If x=0, the last-returned random number is returned, If x>0, then the result is in the range 0<=RND(x)<1. If x<0, the random number generator is seeded based on x; subsequent calls with x>0 will return the same sequence.
+
+The random number generator is fairly predictable; you may want to investigate other methods for heavy-duty number generation.
+
+If you want a integral random number between 1 and N, you should use an expression like 'VALUE%=INT(RND(1)*N)+1'
+
+
+[edit] Section 5: Disk I/O
+[edit] General intro and simple commands
+
+This is only available once you've started up your computer with DOS 3.3 or ProDOS. [If you haven't, then reboot into one of those before typing in your program. With some trickery, you can boot a DOS 3.3 "slave" disk and recover a BASIC program you've already typed in, but this is too technical for here.] For the most part, DOS 3.3 and ProDOS can act almost identically to a running program until you try and use the features available only in one of them. For more information on DOS 3.3 and ProDOS commands, see their FAQ at http://apple2.info/wiki/index.php?title=DOS.
+
+Also, the restrictions on filenames differs significantly between the two. DOS 3.3 must start with a letter, but the rest of the 30 characters can be pretty much anything, and the file are case sensitive. [Certain other characters are very difficult to type from the command line, such as the comma, return and other control characters like control-H] ProDOS must start with a letter, but the remaining 14 characters (15 total) can only be letters, 0-9 and '.'. ProDOS filenames are stored as uppercase only, so it's case insensitive.
+
+Note that all DOS commands are done as an addon to Basic, so their commands can not be inserted in the middle of your program code. You must 'PRINT' all your commands, preceeded by a control-D character. The most common way of doing this is to assign the control-D to a string variable, usually D$. Then, use D$ before all disk commands. For example, 'D$=CHR$(4): PRINT D$"CATALOG"' You can also use a 'PRINT CHR$(4)"CATALOG"' to achieve the same effect. This FAQ uses the second method to be clearer.
+
+In addition, DOS 3.3 wants the control-D to be the first character in an output line; if you are having troubles, prepend a blank 'PRINT' before the command, e.g. 'PRINT : PRINT CHR$(4)"CATALOG"'. ProDOS wants the control-D to be the first character PRINTed.
+
+DOS 3.3 does have a few bugs related to the GET command. If the first character printed after a GET is a control character, it will get eaten. This prevents all DOS commands from working, unless you print a sacrifice control character after GETs. Control-A (CHR$(1)) doesn't acffect the screen or anything else, which makes it nice and useful.
+
+The most simple commands to use the disk are to load and save your Applesoft program, called 'LOAD filename' and 'SAVE filename' respectively. [If you omit the filename on a machine with cassette ports (][, ][+ and //e), it will attempt to read/write from the cassette ports in back, and seem to hang if a system is not connected] Once saved to disk, you can access the program later; 'RUN filename' can be used to both LOAD and RUN a saved Applesoft program.
+
+'CATALOG' (case sensitive) under DOS 3.3 will show a listing of all files. Under ProDOS, 'catalog' (case insensitive) gives a listing formatted for 80-column displays; 'cat' deletes a few lesser used (date/time modified, file size, etc) columns to fit nicely on a 40-column display.
+
+'DELETE filename' deletes a file. File recovery is very difficult under certain versions of ProDOS, so be sure only to delete what you want.
+[edit] Binary Files
+
+Binary files (literally a memory image) can also be loaded and saved. They can be saved with a 'BSAVE filename,Astart,Llen'. The starting address in memory to save from and the length can be specified in decimal or in hexadecimal (hex is preceeded by a $, so that 8192 decimal is represented by $2000). Under DOS 3.3, the start and length parameters are required; under ProDOS, if they are omitted, the parameters used when the file was created are used. [There are also some more fun options under ProDOS; I'll get around to those later]
+
+'BLOAD filename[,Astart][,Llen]' loads a file later. If omitted, the address and length default to what was used when the file was saved; if used, they override what was used when the file was saved. [Once again, extra fun ProDOS options]
+
+'BRUN filename[,Astart]' loads a binary file and starts executing it. If it is not program code, the computer will probably have a nasty crash. If omitted, the address defaults to what was used when the file was saved.
+[edit] Text File I/O
+
+Text files written to under Basic can be of two forms: "Sequential Access" and "Random Access." Sequential files can only be accessed a line at a time, with each line accessed after the one before them. Random Access files allow you to define 'records' for your input, and then go to any records at will.
+
+Both methods require you to 'OPEN' a file before any reading or writing to it take place. 'OPEN'ing a file creates it on disk if it does not exist. A sequential file is opened with a 'PRINT CHR$(4)"OPEN filename"'.
+
+A random access file has record of a certain length in bytes. Each one may contain multiple pieces of text, but the text in them should not go over the length, or you will write into the next record. When first opened, you must specify the field length, e.g. 'PRINT CHR$(4)"OPEN filename,Llen"'. Under DOS 3.3, you must specify the record length each time you open the file; ProDOS recalls that for you from the first time you created the file and can omit that parameter when reopening a file.
+
+When done with a file, your program should 'PRINT CHR$(4)"CLOSE filename"' to close that specific file, or 'PRINT CHR$(4)"CLOSE"' to close all open files. Applesoft or ProDOS does not automatically close all open files when your program ends, and as output is buffered, your disk file may not be complete.
+
+After opening, you need to speficy whether the file is to be read or written to. 'PRINT CHR$(4)"READ filename"' and 'PRINT CHR$(4)"WRITE filename"' do the appropriate action. It is not possible to have a file open for both reading and writing at once. With random access files, you can specify which record you want to move to in the READ or WRITE statement (it is allowable to READ or WRITE an open file multiple times) with the ',Rrecord' parameter-- the first record is record 0. For example, to read from the 10th record, 'PRINT CHR$(4)"READ filename,R9"'
+
+Once your file is ready for reading or writing, you can use simple INPUT or GET commands to read data, and PRINT to write to the file. All input or output is redirected to the files until you either close off the file, or issue any DOS command, including the DOS null command of a single control-D, e.g. 'PRINT CHR$(4)'.
+
+If you OPEN an existing file, and try to WRITE to it, you'll write to the start of it. If you wish to WRITE to the end of an existing file, you can 'PRINT CHR$(4)"APPEND filename"' before WRITEing to it instead of OPENing the file. DOS 3.3 had several nasty bugs in the APPEND code that made it not always correctly locate the end of the file; you should write a null character (CHR$(0)) at the end of your last data to go into the file. ProDOS finally fixed that bug.
+
+
+[edit] Section 6: Error codes and messages
+
+== Applesoft Error codes ==
+
+Following is a list of the error codes returned on a PEEK(222), as well as the message printed if the error remains untrapped.
+Code 	Message:
+0 	 ?Next Without For
+16 	 ?Syntax Error
+22 	 ?Return Without Gosub
+42 	 ?Out of Data
+53 	 ?Illegal Quantity
+69 	 ?Overflow
+77 	 ?Out of Memory
+90 	 ?Undefined Statement
+107 	 ?Bad Subscript Error
+120 	 ?Redim'd Array
+133 	 ?Division By Zero
+163 	 ?Type Mismatch
+176 	 ?String Too Long
+191 	 ?Formula Too Complex
+224 	 ?Undef'd Function
+254 	 ?Reenter
+255 	(Control-C interrupt)
+
+Error codes not possible within a program:
+
+?Can't Continue Error ?Illegal Direct Error
+[edit] DOS 3.3 Error Codes
+
+Following is a list of the error codes returned on a PEEK(222), as well as the message printed if the error remains untrapped.
+Code 	Message:
+1 	Language Not Available
+2 	Range Error
+3 	Range Error
+4 	Write Protected
+5 	End of Data
+6 	File not Found
+7 	Volume Mismatch
+8 	I/O Error
+9 	Disk Full
+10 	File Locked
+11 	Syntax Error
+	[Different from Applesoft's ?Syntax Error;
+	this one is triggered by a
+	Syntax error in a DOS 3.3 command]
+12 	No buffers available
+13 	File type mismatch
+14 	Program too large
+15 	Not direct command
+
+
+[edit] ProDOS Error Codes
+
+Following is a list of the error codes returned on a PEEK(222), as well as the message printed if the error remains untrapped.
+Code 	Message:
+2 	Range Error
+3 	No device connected
+4 	Write Protected
+5 	End of Data
+6 	Path not Found
+8 	I/O Error
+9 	Disk Full
+10 	File Locked
+11 	Invalid Parameter
+12 	No buffers available
+13 	File type mismatch
+14 	Program too large
+15 	Not direct command
+16 	Syntax Error
+	[Different from Applesoft's ?Syntax Error;
+	this one is triggered by a
+	Syntax error in a ProDOS command]
+17 	Directory Full
+18 	File not open
+19 	Duplicate File Name
+20 	File Busy
+21 	File(s) still open
+
+
+[edit] Section 7: Miscellaneous Questions
+[edit] How do I list to a file or transfer Applesoft to another platform?
+
+Applesoft Basic files are not stored as ascii files on disk; all of the keywords are tokenized and stored as single byte values in the code. Thus, you cannot open the file in a word processor and expect it to work.
+
+To save a file off to an ascii file, do the following, assuming you have DOS 3.3 or ProDOS loaded. Tack this line of code on to the beginning of that file and run the program. It'll create a file on disk with name 'ASOFT.LISTING'; replace the two occurrances of that name below to write to something else.
+
+1 D$=CHR$(4): PRINT D$"OPEN ASOFT.LISTING": PRINT D$"WRITE ASOFT.LISTING" : POKE 33,73: LIST : PRINT D$"CLOSE": TEXT: END
+
+
+There are a lot more questions with answers not included directly in this FAQ; please see http://apple2.info/wiki/index.php?title=CSA2_FAQ for more of them.
+
+Copyright 1998-2007 by Tony Diaz
+Retrieved from "http://apple2.info/wiki/index.php?title=Applesoft_BASIC"
+
+    Article
+    Discussion
+    Edit
+    History
+
+    What links here |
+    Related changes |
+    Upload file |
+    Special pages
+    | Permanent link
+
+This page was last modified 08:40, 20 September 2007. This page has been accessed 3,818 times.
+
+    Privacy policy |
+    About A2wiki |
+    Disclaimers |
+    Design by Paul Gu
+

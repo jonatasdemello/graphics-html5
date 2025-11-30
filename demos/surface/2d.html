@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>How to map points between 2D coordinate systems (Windows) | Microsoft Learn</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="color-scheme" content="light dark">
+	<link rel="canonical" href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/samples/jj635757(v=vs.85)">
+	<link rel="stylesheet" href="include/site-ltr.css">
+</head>
+
+<body id="body" data-bi-name="body" class="layout-body " lang="en-us" dir="ltr">
+<main id="main" role="main" class="layout-body-main " data-bi-name="content" lang="en-us" dir="ltr">
+<div data-main-column="" class="padding-sm padding-top-none padding-top-sm-tablet">
+<div>
+<!-- article here! -->
+<div class="content">
+<h1 id="how-to-map-points-between-2d-coordinate-systems">How to map points between 2D coordinate systems</h1>
+</div>
+<div class="content">
+<p>This topic describes how to map points from
+one 2D coordinate system to another. This can be useful for graphics
+systems, such as <a href="https://go.microsoft.com/fwlink/p/?linkid=690352" data-linktype="external">canvas</a>, that do not provide a <a href="https://go.microsoft.com/fwlink/p/?linkid=261240" data-linktype="external">current transformation matrix</a> (CTM).</p>
+<p>An <a href="https://go.microsoft.com/fwlink/p/?linkid=261242" data-linktype="external">affine transformation</a>
+is a linear (or first-order) transformation that can relate two 2D
+coordinate systems, typically through a composition of rotations,
+translations, dilations, and shears. The following is a possible
+example:</p>
+<p><img src="include/jj635757.image1.png" alt="" data-linktype="relative-path"></p>
+<p>Assuming a typical screen coordinate system (shown in red), affine transformations are expressed algebraically as follows:</p>
+<p><img src="include/jj635757.equation1.png" alt="" data-linktype="relative-path"></p>
+<p>In other words, if we can determine <em>a</em>, <em>b</em>, <em>c</em>, and <em>d</em>, we can calculate the point (<em>x'</em>, <em>y'</em>) from the point (<em>x</em>, <em>y</em>) and vice versa.</p>
+<p>Notice that this system of linear equations has four unknowns. Therefore, we need four equations to determine <em>a</em>, <em>b</em>, <em>c</em>, and <em>d</em>:</p>
+<p><img src="include/jj635757.equation2.png" alt="" data-linktype="relative-path"></p>
+<p>In matrix notation, this linear system can be written as:</p>
+<p><img src="include/jj635757.equation3.png" alt="" data-linktype="relative-path"></p>
+<p>To determine <em>a</em> through <em>d</em>, we <a href="https://go.microsoft.com/fwlink/p/?linkid=330517" data-linktype="external">invert</a><strong>M</strong> and solve as follows:</p>
+<p><img src="include/jj635757.equation4.png" alt="" data-linktype="relative-path"></p>
+<p><strong>Note</strong>&nbsp;&nbsp;Although most modern calculators, as well as a number of mathematical websites (such as <a href="https://go.microsoft.com/fwlink/p/?linkid=261243" data-linktype="external">WolframAlpha</a>), can easily invert matrices, the symbolic inverse of <strong>M</strong> is as follows:</p>
+<p>&nbsp;</p>
+<p><img src="include/jj635757.inverse.png" alt="" data-linktype="relative-path"></p>
+<p>Now by examining <strong>u</strong> and <strong>M</strong>, we see that we only need two known coincident points from each coordinate system:</p>
+<p><img src="include/jj635757.u_and_m.png" alt="" data-linktype="relative-path"></p>
+<p>For example, from the previous diagram, we see that:</p>
+<p><img src="include/jj635757.equation5.png" alt="" data-linktype="relative-path"></p>
+<p>Plugging these values into <strong>u</strong> and <strong>M</strong> yields:</p>
+<p><img src="include/jj635757.equation6.png" alt="" data-linktype="relative-path"></p>
+<p>Taking the inverse of <strong>M</strong> (approximate values shown) and multiplying by <strong>u</strong> produces:</p>
+<p><img src="include/jj635757.equation7.png" alt="" data-linktype="relative-path"></p>
+<p>That is:</p>
+<p><img src="include/jj635757.equation8.png" alt="" data-linktype="relative-path"></p>
+<p>So the transformation equations become:</p>
+<p><img src="include/jj635757.equation9.png" alt="" data-linktype="relative-path"></p>
+<p>For example, (<em>x</em>, <em>y</em>) = (37.1, 58.3) maps to the point (<em>x'</em>, <em>y'</em>) = (-7, -3) as follows:</p>
+<p><img src="include/jj635757.equation10.png" alt="" data-linktype="relative-path"></p>
+<p>And the point (<em>x</em>, <em>y</em>) = (54.28, 24.33) maps to the <em>x’y’</em>-origin, as expected:</p>
+<p><img src="include/jj635757.equation11.png" alt="" data-linktype="relative-path"></p>
+<p>This transformation technique can be useful for graphics systems that do not provide a <a href="https://go.microsoft.com/fwlink/p/?linkid=261240" data-linktype="external">current transformation matrix</a> (CTM). Unlike <a href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/samples/gg589525(v=vs.85)" data-linktype="relative-path">SVG</a>, <a href="https://go.microsoft.com/fwlink/p/?linkid=225601" data-linktype="external">canvas</a> (as of this writing) does not provide a CTM (that is, there is no <code>canvas.context.getTransform</code>
+method). Therefore, the technique we've discussed here can be used in a
+number of scenarios instead. For example, consider a 600 pixel by 400
+pixel canvas (in red) with the following implied coordinate system (in
+green):</p>
+<p><img src="include/jj635757.image2.png" alt="" data-linktype="relative-path"></p>
+<p>For this relatively simple case, the required transformation equations can be derived without using <a href="https://go.microsoft.com/fwlink/p/?linkid=261246" data-linktype="external">linear algebra</a>, but we do so to exemplify the above procedure. From this diagram, we see that:</p>
+<p><img src="include/jj635757.equation12.png" alt="" data-linktype="relative-path"></p>
+<p>Thus,</p>
+<p><img src="include/jj635757.equation13.png" alt="" data-linktype="relative-path"></p>
+<p>And,</p>
+<p><img src="include/jj635757.equation14.png" alt="" data-linktype="relative-path"></p>
+<p>Therefore,</p>
+<p><img src="include/jj635757.equation15.png" alt="" data-linktype="relative-path"></p>
+<p>So the transformation equations become:</p>
+<p><img src="include/jj635757.equation16.png" alt="" data-linktype="relative-path"></p>
+<p>That is, (0, 0) maps to (-8, 4) as follows:</p>
+<p><img src="include/jj635757.equation17.png" alt="" data-linktype="relative-path"></p>
+<p>And (600, 400) maps to (4, -4) in the same way:</p>
+<p><img src="include/jj635757.equation18.png" alt="" data-linktype="relative-path"></p>
+<p>As a final validation, we confirm that (400, 200) maps to the origin of the green coordinate system:</p>
+<p><img src="include/jj635757.equation19.png" alt="" data-linktype="relative-path"></p>
+<p>When the transformation equation coefficients are known, you can calculate (<em>x</em>, <em>y</em>) from (<em>x'</em>, <em>y'</em>) as follows:</p>
+<p><img src="include/jj635757.equation20.png" alt="" data-linktype="relative-path"></p>
+<p>To conclude, when a graphical system (such as canvas) does not
+provide a CTM, the above technique can be used to generate useful
+transformation equations given two coincident points from both 2D
+coordinate systems.</p>
+
+<div class="heading-wrapper" data-heading-level="h2"><a class="anchor-link docon docon-link" href="#related-topics" aria-label="Section titled: Related topics"></a>
+<h2 id="related-topics" class="heading-anchor">Related topics</h2>
+</div>
+<p><a href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/samples/hh535759(v=vs.85)" data-linktype="relative-path">How To Create 3D Graphics Using Canvas</a></p>
+<p><a href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/samples/gg589510(v=vs.85)" data-linktype="relative-path">HTML5 Canvas</a></p>
+<p><a href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/samples/hh535760(v=vs.85)" data-linktype="relative-path">SVG Coordinate Transformations</a></p>
+</div>
+</div>
+</div>
+</main>
+</body>
+
+</html>
