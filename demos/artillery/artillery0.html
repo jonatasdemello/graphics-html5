@@ -131,8 +131,6 @@
         FOLLOWED BY THE MILLIMETER SIZE (45 TO 150 MM)<br><br>
         <button onclick="startGame()">Start Game</button>
         <button onclick="hideInstructions()">Skip Instructions</button>
-    </div>
-
     <div>
         The conversion includes:
 
@@ -151,6 +149,8 @@ The physics uses the classic trajectory equations:
 x = v₀·cos(θ)·t + wind·effect
 y = v₀·sin(θ)·t - ½·g·t²
 Players must account for wind speed and direction to accurately hit their opponent's gun position!
+    </div>
+
     </div>
 
     <canvas id="canvas" width="560" height="384" class="hidden"></canvas>
@@ -299,19 +299,23 @@ Players must account for wind speed and direction to accurately hit their oppone
 
         // Line 1290: Draw wind indicator
         function drawWindIndicator() {
-            if (P1 < 0) {
-                hcolor(6);
+            let c1 = P1 < 0 ? 3 : 0; // White or Black
+            let c2 = P1 < 0 ? 0 : 5; // Black or Orange
+            hcolor(c1);
+            //if (P1 < 0) {
+                //hcolor(6);
                 hplot(250, 152, 254, 152);
                 hplot(250, 153, 254, 153);
                 hplot(250, 154, 254, 154);
                 hplot(250, 155, 254, 155);
-            } else {
-                hcolor(6);
+            //} else {
+            hcolor(c2);
+                //hcolor(6);
                 hplot(1, 152, 4, 152);
                 hplot(1, 153, 4, 153);
                 hplot(1, 154, 4, 154);
                 hplot(1, 155, 4, 155);
-            }
+            //}
             hcolor(2);
         }
 
@@ -405,7 +409,14 @@ Players must account for wind speed and direction to accurately hit their oppone
                 let Y = Y1 * Y8 - 16 * Y8 * Y8;
                 Y = Math.floor(Y + 0.5);
 
-                if (Y < 9) break;
+                // Calculate plot position
+                if (Y < 9) {
+                    X2 = G[1];
+                }
+                else {
+                    X2 = G[2];
+                }
+                Y2 = 150
 
                 if (P1 < 0) {
                     G4 = G[2] - X;

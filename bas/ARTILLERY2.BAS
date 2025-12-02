@@ -54,7 +54,7 @@
     IF P1 >= 0 THEN X2 = G(2)
     'RETURN
 
-380 FOR X8 = 1 TO 20
+380 FOR X8 = 1 TO 20 : rem max 20 turns
 390 P2 = 0
 400 P1 = P1 * ( - 1)
 '410 GOSUB 1290 : rem player ind
@@ -73,7 +73,7 @@
     1400 HCOLOR= 0
     1410 IF P1 < 0 THEN 1300
     1420 HCOLOR = 2
-    1430 RETURN
+    '1430 RETURN
 
 420 PRINT : PRINT : PRINT
 ' GOSUB 1580 : rem wind dir
@@ -102,61 +102,77 @@
 510 W5 = 0
 
 520 FOR Y8 = 0 TO T1 STEP T2
-530 W5 = W5 + W3
-540 X = X1 * Y8
-550 X = X + (W5 * W2)
-560 X = INT (X + .5)
-570 Y = Y1 * Y8 - 16 * Y8 ^ 2
-580 Y = INT (Y + .5)
-590 IF Y < 9 THEN 750
-600 IF P1 < 0 THEN 680
-610 G4 = G(1) + X
-620 IF G4 < 1 OR G4 > 254 THEN 670
-630 IF Y > 149 THEN 670
-640 HCOLOR= 5
-650 HPLOT X2,Y2 TO G4,150 - Y
-660 X2 = G4 : Y2 = 150 - Y
-670 GOTO 750
-680 G4 = G(2) - X
-690 IF G4 < 0 OR G4 > 254 THEN 750
-700 IF Y > 149 THEN 750
-710 HCOLOR= 3
-720 HPLOT X2,Y2 TO G4,150 - Y
-730 X2 = G4 : Y2 = 150 - Y
-740 IF Y8 = 0 THEN 770
-'750 GOSUB 1060
-    1060 Y6 = 150
-    1070 G8 = Y7 + 2 * G3
-    1080 Y7 = G(1) + G2
-    1090 IF Y > G3 THEN 1280 : REM return
-    1100 IF G4 < Y7 + Y THEN 1280 : REM return
-    1110 IF G4 > G8 - Y THEN 1280 : REM return
-    1120 P2 = 5
-    1130 P2 = 5
-    1140 Y6 = 150 - Y
-    1150 Y6 = 150 - Y
-    1160 FOR Z = 1 TO 5
-    1170   IF G4 < 0 OR G4 > 253 THEN 1240 : rem next Z
-    1180   HPLOT G4,Y6 - Z
-    1190   HPLOT G4 + Z,Y6 - Z
-    1200   HPLOT G4 - Z,Y6 - Z
-    1210   HPLOT G4 + Z,Y6 - 1
-    1220   HPLOT G4 - Z,Y6 - 1
-    1230   X5 = PEEK ( - 16336)
-    1240 NEXT Z
-    1250 Y = 0
-    1260 X = 0
-        '1270 GOSUB 1630
-        Y2 = 150
-        IF P1 < 0 THEN X2 = G(1)
-        IF P1 >= 0 THEN X2 = G(2)
-        'RETURN
-    '1280 RETURN
-
-760 IF P2 = 5 THEN 800
+530   W5 = W5 + W3
+540   X = X1 * Y8
+550   X = X + (W5 * W2)
+560   X = INT (X + .5)
+570   Y = Y1 * Y8 - 16 * Y8 ^ 2
+580   Y = INT (Y + .5)
+590   IF Y < 9 THEN 750
+600   IF P1 < 0 THEN 680
+610   G4 = G(1) + X
+620   IF G4 < 1 OR G4 > 254 THEN 670
+630   IF Y > 149 THEN 670
+640   HCOLOR= 5
+650   HPLOT X2,Y2 TO G4,150 - Y
+660   X2 = G4 : Y2 = 150 - Y
+670   GOTO 750
+680   G4 = G(2) - X
+690   IF G4 < 0 OR G4 > 254 THEN 750
+700   IF Y > 149 THEN 750
+710   HCOLOR= 3
+720   HPLOT X2,Y2 TO G4,150 - Y
+730   X2 = G4 : Y2 = 150 - Y
+740   IF Y8 = 0 THEN 770
+750   rem GOSUB 1060
+        1060 Y6 = 150
+        1070 G8 = Y7 + 2 * G3
+        1080 Y7 = G(1) + G2
+        1090 IF Y > G3 THEN 1280 : REM return
+        1100 IF G4 < Y7 + Y THEN 1280 : REM return
+        1110 IF G4 > G8 - Y THEN 1280 : REM return
+        1120 P2 = 5
+        '1130 P2 = 5
+        '1140 Y6 = 150 - Y
+        1150 Y6 = 150 - Y
+        1160 FOR Z = 1 TO 5
+        1170   IF G4 < 0 OR G4 > 253 THEN 1240 : rem next Z
+        1180   HPLOT G4,Y6 - Z
+        1190   HPLOT G4 + Z,Y6 - Z
+        1200   HPLOT G4 - Z,Y6 - Z
+        1210   HPLOT G4 + Z,Y6 - 1
+        1220   HPLOT G4 - Z,Y6 - 1
+        1230   rem beep X5 = PEEK ( - 16336)
+        1240 NEXT Z
+        1250 Y = 0
+        1260 X = 0
+            '1270 GOSUB 1630
+            1630 Y2 = 150
+            1640 IF P1 < 0 THEN X2 = G(1)
+            1650 IF P1 >= 0 THEN X2 = G(2)
+            'RETURN
+        1280 rem RETURN
+760   IF P2 = 5 THEN 800
 770 NEXT Y8
 780 Y6 = 150
 790 GOSUB 1160 : rem explosion
+        1160 FOR Z = 1 TO 5
+        1170   IF G4 < 0 OR G4 > 253 THEN 1240 : rem next Z
+        1180   HPLOT G4,Y6 - Z
+        1190   HPLOT G4 + Z,Y6 - Z
+        1200   HPLOT G4 - Z,Y6 - Z
+        1210   HPLOT G4 + Z,Y6 - 1
+        1220   HPLOT G4 - Z,Y6 - 1
+        1230   rem beep X5 = PEEK ( - 16336)
+        1240 NEXT Z
+        1250 Y = 0
+        1260 X = 0
+            '1270 GOSUB 1630
+            1630 Y2 = 150
+            1640 IF P1 < 0 THEN X2 = G(1)
+            1650 IF P1 >= 0 THEN X2 = G(2)
+            'RETURN
+        1280 rem RETURN
 
 800 IF G4 > G(1) + 5 OR G4 < G(1) - 5 THEN 850
 810 PRINT : PRINT : PRINT
@@ -170,7 +186,7 @@
 890 GOTO 930 : rem end of turn
 900 P2 = 0
 910 G4 = 0
-920 NEXT X8
+920 NEXT X8 : rem max 20 turns
 
 930 PRINT : PRINT "DO YOU WANT TO PLAY AGAIN";
 940 INPUT A$
@@ -185,9 +201,4 @@
 1020 PRINT "RIGHT ";T3
 1045 D9$ = "CHR$(13)": PRINT D$
 1050 END
-
-
-
-
-
 

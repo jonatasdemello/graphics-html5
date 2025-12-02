@@ -7,37 +7,50 @@ Apple II
 
 LoRes
   GR - 40x40 + 4 lines of text or 40x48 graphics on the screen with 16 fixed colors available.
-  COLOR=X Valid colors are 0 (Black), 1 (Magenta), 2 (Dark Blue), 3 (Violet), 4 (Dark Green), 5 (Dark Gray), 6 (Medium Blue), 7 (Light Blue), 8 (Brown), 9 (Orange), 10 (Light Gray), 11 (Pink), 12 (Bright Green), 13 (Yellow), 14 (Aqua) and 15 (White)
-	
-HiRes
-  HGR  - 280x160 mode with 4 lines of text at the bottom
-  HGR2 - 280x192 hires graphics screen
-	Valid color numbers are 0 (Black 1), 1 (Green), 2 (Violet), 3 (White 1), 4 (Black 2), 5 (Orange), 6 (Blue), 7 (White 2). 
+  COLOR=X Valid colors are
+	  0 (Black), 1 (Magenta), 2 (Dark Blue),
+	  3 (Violet), 4 (Dark Green), 5 (Dark Gray),
+	  6 (Medium Blue), 7 (Light Blue), 8 (Brown),
+	  9 (Orange), 10 (Light Gray), 11 (Pink),
+	  12 (Bright Green), 13 (Yellow), 14 (Aqua)
+	  and 15 (White)
 
+HiRes
+  HGR  - 280x160 + 4 lines of text at the bottom
+  HGR2 - 280x192 hires graphics screen
+	Valid color numbers are
+	0 (Black 1),
+	1 (Green),
+	2 (Violet),
+	3 (White 1),
+	4 (Black 2),
+	5 (Orange),
+	6 (Blue),
+	7 (White 2).
 
 Lo-Res Graphics
 
 GR
-    Set display to mixed test/low resolution ("lores") graphics mode, clear screen to black 
+    Set display to mixed test/low resolution ("lores") graphics mode, clear screen to black
 COLOR= aexpr
-    Set lores color (0...15) 
+    Set lores color (0...15)
 PLOT aexpr, aexpr
-    Plot lores point (x = 0...39, y = 0...39/47) 
+    Plot lores point (x = 0...39, y = 0...39/47)
 HLIN aexpr, aexpr AT aexpr
-    Plot horizontal line (x1, x2 at y) 
+    Plot horizontal line (x1, x2 at y)
 VLIN aexpr, aexpr AT aexpr
-    Plot vertical line (y1, y2 at x) 
+    Plot vertical line (y1, y2 at x)
 
 Hi-Res Graphics
 
 HGR
-    Set display to mixed/high resolution ("hires") graphics mode, clear screen to black 
+    Set display to mixed/high resolution ("hires") graphics mode, clear screen to black
 HGR2
-    Set display to full hires mode (page 2), clear screen to black 
+    Set display to full hires mode (page 2), clear screen to black
 HPLOT [TO] aexpr, aexpr [ TO aexpr, aexpr ] ...
-    Plot hires point/line (x=0...279, y=0...191) 
+    Plot hires point/line (x=0...279, y=0...191)
 HCOLOR= aexpr
-    Set hires color (0...7) 
+    Set hires color (0...7)
 
 
 
@@ -51,7 +64,7 @@ The Lores graphics screen can be turned on in "mixed" mode of 40x40 with 4 lines
 
 'SCRN(x,y)' will return the color (0-15) of the pixel at coordinated x,y.
 
-'TEXT' will get you out of Lores or hires graphics mode (with a lot of ugly garbage where your lores screen was; you may want to do a 'HOME' to clear the screen after switching out. 
+'TEXT' will get you out of Lores or hires graphics mode (with a lot of ugly garbage where your lores screen was; you may want to do a 'HOME' to clear the screen after switching out.
 
  High Resolution (Hires) graphics:
 
@@ -75,4 +88,4 @@ A 0 in an even numbered column and a 1 immediately to its right (assuming that 1
 
 For Apple IIs past the first few revisions of the Apple ][, the high bit of each byte shifts colors up for each pixel contained within to the second palette of 4 colors. Black and white are duplicated between the two, but green becomes orange and violet becomes blue if the high bit is set.
 
-'TEXT' will get you out of Lores or hires graphics mode. 
+'TEXT' will get you out of Lores or hires graphics mode.
