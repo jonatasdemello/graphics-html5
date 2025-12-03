@@ -32,14 +32,12 @@
         }
 
         canvas {
-            /* Scale up the 320x200 canvas so the pixels are visible */
+            /* Scale up 2X the 320x200 canvas so the pixels are visible */
             width: 640px;
-            /* 2x scale */
             height: 400px;
-            /* 2x scale */
             border: 2px solid rgba(0, 60, 255, 0.63);
             background-color: #000;
-            /*image-rendering: pixelated;*/
+            image-rendering: pixelated;
             /*image-rendering: crisp-edges;*/
             /* image-rendering: smooth; */
         }
@@ -158,6 +156,8 @@ Players must account for wind speed and direction to accurately hit their oppone
     </div>
 
     <canvas id="canvas" width="320" height="200" class="hidden"></canvas>
+    <!-- 2x scale to be more visible -->
+    <!-- <canvas id="canvas" width="640" height="400" class="hidden"></canvas> -->
 
     <div id="gameInfo" class="game-info"></div>
 
@@ -190,7 +190,7 @@ Players must account for wind speed and direction to accurately hit their oppone
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 2;
 
         // Apple II HGR colors (scaled 2x)
         const COLORS = [

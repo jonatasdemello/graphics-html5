@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas01,
+        #canvas02 {
+            width: 300px;
+            height: 300px;
+            image-rendering: pixelated;
+            border: 1px solid black;
+        }
+        #canvas1,
+        #canvas2 {
+        width: 240px;
+        height: 240px;
+        }
+        #canvas2 {
+        image-rendering: pixelated;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas01" width="15" height="15"></canvas>
+    <canvas id="canvas02" width="15" height="15"></canvas>
+    <br>
+    <canvas id="canvas1" width="12" height="12"></canvas>
+    <canvas id="canvas2" width="12" height="12"></canvas>
+    <canvas id="canvas3" width="240" height="240"></canvas>
+    <script>
+        function draw0() {
+            const canvas1 = document.getElementById("canvas01");
+            const ctx = canvas1.getContext("2d");
+            ctx.strokeStyle = "blue";
+            // pixellated rectangle
+            ctx.strokeRect(2, 2, 10, 10);
+            ctx.fillRect(7, 7, 1, 1);
+
+            const canvas2 = document.getElementById("canvas02");
+            const ctx2 = canvas2.getContext("2d");
+            ctx2.strokeStyle = "blue";
+            // pixellated rectangle
+             ctx2.strokeRect(2, 2, 10, 10);
+            // fix
+            ctx2.strokeRect(2.5, 2.5, 9, 9);
+            ctx2.fillRect(7, 7, 1, 1);
+        }
+        draw0();
+
+        function draw(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(3, 2);
+            ctx.lineTo(9, 4.5);
+            ctx.lineTo(6.5, 10.5);
+            ctx.lineTo(0.5, 8);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawFullScale() {
+        const canvas = document.getElementById("canvas3");
+        const ctx = canvas.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(60, 40);
+        ctx.lineTo(180, 90);
+        ctx.lineTo(130, 210);
+        ctx.lineTo(10, 160);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = "lightgray";
+        for (let i = 0; i < 16; i++) {
+            ctx.moveTo(i * 20, 0);
+            ctx.lineTo(i * 20, 300);
+            ctx.moveTo(0, i * 20);
+            ctx.lineTo(300, i * 20);
+            ctx.stroke();
+        }
+        }
+        draw("canvas1");
+        draw("canvas2");
+        drawFullScale();
+
+    </script>
+
+    <pre>
+In this example, we create our canvas really small (15x15), but then use CSS to scale it up to 300x300 pixels. As a result, each canvas pixel is now represented by a 20x20 block of CSS pixels. We draw a stroked rectangle from (2,2) to (12,12) and a filled rectangle from (7,7) to (8,8). It appears really blurry. This is because by default, when the browser scales raster images, it uses a smoothing algorithm to interpolate the extra pixels. This is great for photographs or canvas graphics with curly edges, but not so great for straight-edged shapes. To fix this, we can set image-rendering to pixelated:
+But now another issue becomes apparent, one that you can actually also observe in the original rectangle example: the stroked rectangle is not only 2 pixels wide instead of 1, but also appears gray rather than the default black. This is because of how the coordinates are interpreted as shape boundaries.
+If you look at the grid diagram above again, you can see that coordinates like 2 or 12 do not identify a pixel, but rather the edge between two pixels. In the images below, the grid represents the canvas coordinate grid. The squares between grid lines are actual on-screen pixels. In the first grid image below, a rectangle from (2,1) to (5,5) is filled. The entire area between them (light red) falls on pixel boundaries, so the resulting filled rectangle will have crisp edges.
+
+To fix this, you have to be very precise in your path creation. Knowing that a 1.0 width line will extend half a unit to either side of the path, creating the path from centers of pixels results in the situation in the third image—the 1.0 line width ends up completely and precisely filling a single pixel vertical line.
+
+Note: Be aware that in our vertical line example, the Y position still referenced an integer grid line position—if it hadn't, we would see pixels with half coverage at the endpoints.
+
+So this is why we said earlier that the strokeRect(50, 50, 50, 50) call in the rectangle example was conceptually 50x50, but in reality it is 52x52. The actual filled region for the outline starts at (49.5, 49.5) and ends at (100.5, 100.5), and because of the partially filled pixels, the actually filled area is from (49,49) to (101,101), which is 52x52, and the edges are 2-pixel wide. To get a solid 1-pixel wide outline that is exactly 50x50, you would need to shrink the rectangle by the thickness of the outline (1px), and move it by half the thickness (0.5px):
+
+For even-width lines, each half ends up being an integer amount of pixels, so you want a path that is between pixels (that is, (3,1) to (3,5)), instead of down the middle of pixels.
+
+While slightly painful when initially working with scalable 2D graphics, paying attention to the pixel grid and the position of paths ensures that your drawings will look correct regardless of scaling or any other transformations involved. A 1.0-width vertical line drawn at the correct position will become a crisp 2-pixel line when scaled up by 2, and will appear at the correct position.
+
+This phenomenon of partially filled pixels also extends to shapes that don't align to the pixel grid. For example, consider a rotated rectangle (you'll learn about drawing it in the next section). To see what it's like with and without image-rendering: pixelated, we have two canvases side by side, and a third one drawn at full scale, with grid lines:
+
+</pre>
+</body>
+
+</html>

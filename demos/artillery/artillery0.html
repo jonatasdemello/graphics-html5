@@ -231,6 +231,18 @@ Players must account for wind speed and direction to accurately hit their oppone
             ctx.fillStyle = COLORS[0];
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
+        function drawAxes(canvas, myContext) {
+            myContext.font = "10px Arial";
+            myContext.fillStyle = "white";
+            // X-axis
+            for (var x = 0; x < canvas.width; x += 50) {
+                myContext.fillText(x, x, 10);
+            }
+            // Y-axis
+            for (var y = 0; y < canvas.height; y += 50) {
+                myContext.fillText(y, 0, y);
+            }
+        }
 
         function hideInstructions() {
             document.getElementById('instructionsDiv').classList.add('hidden');
@@ -321,6 +333,7 @@ Players must account for wind speed and direction to accurately hit their oppone
 
         function newGame() {
             clearCanvas();
+            //drawAxes(canvas, ctx);
             gameActive = true;
 
             // Line 170-190: Initialize gun positions
