@@ -24,18 +24,18 @@
 150 HGR
 160 HCOLOR= 6
 
-169 rem gun pos
+169 rem rnd gun pos
 170 G(1) = RND (1) * 117 + 8
 180 G(2) = RND (1) * 117 + 125
-190 IF G(2) - G(1) < 140 THEN 170
+190 IF G(2) - G(1) < 140 THEN 170 : rem sort G2 again
 
-199 rem wind
+199 rem rnd wind
 200 W1 = INT ( RND (1) * 41)
 210 W2 = INT ( RND (1) + .5) - 1
 220 IF W2 < 0 THEN 240
 230 W2 = 1
 
-235 rem gun
+235 rem draw gun
 240 HPLOT G(2) + 8,149 TO G(2),145
 250 X = 1
 260 HPLOT G(X) - 8,149 TO G(X),145
@@ -47,8 +47,10 @@
 320 HPLOT G(X) - 5,144 TO G(X) + 7,136
 330 HPLOT G(2) + 2,135 TO G(2) - 2,150
 340 HPLOT G(X) - 2,135 TO G(X) + 2,150
-350 P1 = W2
-360 GOSUB 1440 : rem mountain
+
+350 P1 = W2 : rem player 1 start
+
+360 GOSUB 1440 : rem draw mountain
 370 GOSUB 1630 : rem player ind
 380 FOR X8 = 1 TO 20
 390   P2 = 0
@@ -126,18 +128,19 @@
 1045 D9$ = "CHR$(13)": PRINT D$
 1050 END
 
+1059 rem explosion
 1060 Y6 = 150
 1070 G8 = Y7 + 2 * G3
 1080 Y7 = G(1) + G2
-1090 IF Y > G3 THEN 1280
-1100 IF G4 < Y7 + Y THEN 1280
-1110 IF G4 > G8 - Y THEN 1280
+1090 IF Y > G3 THEN 1280 : REM return
+1100 IF G4 < Y7 + Y THEN 1280 : REM return
+1110 IF G4 > G8 - Y THEN 1280 : REM return
 1120 P2 = 5
 1130 P2 = 5
 1140 Y6 = 150 - Y
 1150 Y6 = 150 - Y
 1160 FOR Z = 1 TO 5
-1170    IF G4 < 0 OR G4 > 253 THEN 1240
+1170    IF G4 < 0 OR G4 > 253 THEN 1240 : rem next Z
 1180    HPLOT G4,Y6 - Z
 1190    HPLOT G4 + Z,Y6 - Z
 1200    HPLOT G4 - Z,Y6 - Z
@@ -147,7 +150,7 @@
 1240 NEXT Z
 1250 Y = 0
 1260 X = 0
-1270 GOSUB 1630
+1270 GOSUB 1630 : rem switch player
 1280 RETURN
 
 1289 rem player ind
@@ -193,7 +196,7 @@
 1610 PRINT "THE WIND IS TO THE LEFT AT ";W1
 1620 RETURN
 
-1629 rem player ind pos
+1629 rem switch player
 1630 IF P1 < 0 THEN 1660
 1640 X2 = G(2):Y2 = 150
 1650 GOTO 1670

@@ -76,7 +76,7 @@
     '1430 RETURN
 
 420 PRINT : PRINT : PRINT
-' GOSUB 1580 : rem wind dir
+    ' GOSUB 1580 : rem wind dir
     1579 rem wind dir
     1580 IF W2 < 0 THEN 1610
     1590 PRINT "THE WIND IS TO THE RIGHT AT ";W1
@@ -124,7 +124,7 @@
 720   HPLOT X2,Y2 TO G4,150 - Y
 730   X2 = G4 : Y2 = 150 - Y
 740   IF Y8 = 0 THEN 770
-750   rem GOSUB 1060
+750   rem GOSUB 1060 : rem explosion
         1060 Y6 = 150
         1070 G8 = Y7 + 2 * G3
         1080 Y7 = G(1) + G2
@@ -146,7 +146,7 @@
         1240 NEXT Z
         1250 Y = 0
         1260 X = 0
-            '1270 GOSUB 1630
+            '1270 GOSUB 1630 : rem switch player
             1630 Y2 = 150
             1640 IF P1 < 0 THEN X2 = G(1)
             1650 IF P1 >= 0 THEN X2 = G(2)
@@ -167,7 +167,7 @@
         1240 NEXT Z
         1250 Y = 0
         1260 X = 0
-            '1270 GOSUB 1630
+            '1270 GOSUB 1630 : rem switch player
             1630 Y2 = 150
             1640 IF P1 < 0 THEN X2 = G(1)
             1650 IF P1 >= 0 THEN X2 = G(2)
