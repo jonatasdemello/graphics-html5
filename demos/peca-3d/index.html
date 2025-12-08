@@ -24,7 +24,8 @@
 
 		<h1>3D Object</h1>
 		<p>
-			Source: <a href="https://datassette.org/livros/apple-ii/guia-pratico-de-sistemas-graficos-apple-ii">Link</a><br>
+			Source: <a
+				href="https://datassette.org/livros/apple-ii/guia-pratico-de-sistemas-graficos-apple-ii">Link</a><br>
 			Book: "Guia Pr&#225;tico de Sistemas Gr&#225;ficos Apple II"<br>
 			Autor: &#193;lvaro Luiz Cruz<br>
 			Editora: Livros T&#233;cnicos e Cient&#237;ficos Editora S.A.<br>
@@ -37,14 +38,14 @@
 	</main>
 
 	<div class="container">
-		<button id="Xp" type="button" onclick="rotate(10, 0, 0)">X+</button>
-		<button id="Xm" type="button" onclick="rotate(-10, 0, 0)">X-</button>
-		<button id="Yp" type="button" onclick="rotate(0, 10, 0)">Y+</button>
-		<button id="Ym" type="button" onclick="rotate(0, -10, 0)">Y-</button>
-		<button id="Zp" type="button" onclick="rotate(0, 0, 10)">Z+</button>
-		<button id="Zm" type="button" onclick="rotate(0, 0, -10)">Z-</button>
-		<button id="Ep" type="button" onclick="rotate(10, 10, 10)">E+</button>
-		<button id="Em" type="button" onclick="rotate(-10, -10, -10)">E-</button>
+		<label>inc</label>
+		<input type="text" name="moveInc" id="moveInc" value="0.5" size="2" />
+		<input type="button" value="Up" onclick="moveUp();" />
+		<input type="button" value="Down" onclick="moveDown();" />
+		<input type="button" value="Left" onclick="moveLeft();" />
+		<input type="button" value="Right" onclick="moveRight();" />
+		<input type="button" value="Front" onclick="moveFront();" />
+		<input type="button" value="Back" onclick="moveBack();" />
 	</div>
 
 	<script>
@@ -53,6 +54,36 @@
 		var myCanvas = document.getElementById("myCanvas");
 		var myContext = myCanvas.getContext("2d");
 
+
+		function moveUp() {
+			let val = parseFloat(document.getElementById("moveInc").value);
+			rotate(val, 0, 0)
+		}
+
+		function moveDown() {
+			let val = parseFloat(document.getElementById("moveInc").value);
+			rotate(-val, 0, 0)
+		}
+
+		function moveLeft() {
+			let val = parseFloat(document.getElementById("moveInc").value);
+			rotate(0, -val, 0)
+		}
+
+		function moveRight() {
+			let val = parseFloat(document.getElementById("moveInc").value);
+			rotate(0, val, 0)
+		}
+
+		function moveFront() {
+			let val = parseFloat(document.getElementById("moveInc").value);
+			rotate(0, 0, -val)
+		}
+
+		function moveBack() {
+			let val = parseFloat(document.getElementById("moveInc").value);
+			rotate(0, 0, val)
+		}
 		const nv = 48;
 		const na = 72;
 
@@ -71,29 +102,147 @@
 		let V2 = []; // na
 
 		// lines[na][5]; // 72 lines, 4 pontos (x1, y1 - x2, y2), 1 cor
-		let lines = [ [0, 0, 0, 0, 0] ];
+		let lines = [[0, 0, 0, 0, 0]];
 
 		// [nv][3] = 48 vertices (X, Y, Z)
 		let pontos = [
-			[0, 0, 0], [10, 0, 0], [10, 6, 0], [0, 6, 0], [0, 0, 1], [10, 0, 1], [10, 6, 1], [0, 6, 1],
-			[4.3, 1.2, 1], [5.7, 1.2, 1], [6.8, 2.2, 1], [6.8, 3.8, 1], [5.7, 4.8, 1], [4.3, 4.8, 1], [3.2, 3.8, 1], [3.2, 2.2, 1],
-			[4.5, 1.8, 1], [5.5, 1.8, 1], [6.2, 2.5, 1], [6.2, 3.5, 1], [5.5, 4.2, 1], [4.5, 4.2, 1], [3.8, 3.5, 1], [3.8, 2.5, 1],
-			[4.3, 1.2, 5], [5.7, 1.2, 5], [6.8, 2.2, 5], [6.8, 3.8, 5], [5.7, 4.8, 5], [4.3, 4.8, 5], [3.2, 3.8, 5], [3.2, 2.2, 5],
-			[4.5, 1.8, 5], [5.5, 1.8, 5], [6.2, 2.5, 5], [6.2, 3.5, 5], [5.5, 4.2, 5], [4.5, 4.2, 5], [3.8, 3.5, 5], [3.8, 2.5, 5],
-			[1.7, 2.2, 1], [8.3, 2.2, 1], [8.3, 3.8, 1], [1.7, 3.8, 1], [3.2, 2.2, 3], [6.8, 2.2, 3], [6.8, 3.8, 3], [3.2, 3.8, 3]
+			[0, 0, 0],
+			[10, 0, 0],
+			[10, 6, 0],
+			[0, 6, 0],
+			[0, 0, 1],
+			[10, 0, 1],
+			[10, 6, 1],
+			[0, 6, 1],
+
+			[4.3, 1.2, 1],
+			[5.7, 1.2, 1],
+			[6.8, 2.2, 1],
+			[6.8, 3.8, 1],
+			[5.7, 4.8, 1],
+			[4.3, 4.8, 1],
+			[3.2, 3.8, 1],
+			[3.2, 2.2, 1],
+
+			[4.5, 1.8, 1],
+			[5.5, 1.8, 1],
+			[6.2, 2.5, 1],
+			[6.2, 3.5, 1],
+			[5.5, 4.2, 1],
+			[4.5, 4.2, 1],
+			[3.8, 3.5, 1],
+			[3.8, 2.5, 1],
+
+			[4.3, 1.2, 5],
+			[5.7, 1.2, 5],
+			[6.8, 2.2, 5],
+			[6.8, 3.8, 5],
+			[5.7, 4.8, 5],
+			[4.3, 4.8, 5],
+			[3.2, 3.8, 5],
+			[3.2, 2.2, 5],
+
+			[4.5, 1.8, 5],
+			[5.5, 1.8, 5],
+			[6.2, 2.5, 5],
+			[6.2, 3.5, 5],
+			[5.5, 4.2, 5],
+			[4.5, 4.2, 5],
+			[3.8, 3.5, 5],
+			[3.8, 2.5, 5],
+
+			[1.7, 2.2, 1],
+			[8.3, 2.2, 1],
+			[8.3, 3.8, 1],
+			[1.7, 3.8, 1],
+			[3.2, 2.2, 3],
+			[6.8, 2.2, 3],
+			[6.8, 3.8, 3],
+			[3.2, 3.8, 3]
 		];
 
 		// [na][3] = 72 arestas (p1,  p2,  cor)
 		let vertices = [
-			[0, 1, 2], [1, 2, 2], [2, 3, 2], [3, 0, 2], [4, 5, 2], [5, 6, 2], [6, 7, 2], [7, 4, 2],
-			[0, 4, 2], [1, 5, 2], [2, 6, 2], [3, 7, 2], [8, 9, 3], [9, 10, 3], [10, 11, 3], [11, 12, 3],
-			[12, 13, 3], [13, 14, 3], [14, 15, 3], [15, 8, 3], [24, 25, 3], [25, 26, 3], [26, 27, 3], [27, 28, 3],
-			[28, 29, 3], [29, 30, 3], [30, 31, 3], [31, 24, 3], [8, 24, 3], [9, 25, 3], [10, 26, 3], [11, 27, 3],
-			[12, 28, 3], [13, 29, 3], [14, 30, 3], [15, 31, 3], [16, 17, 3], [17, 18, 3], [18, 19, 3], [19, 20, 3],
-			[20, 21, 3], [21, 22, 3], [22, 23, 3], [23, 16, 3], [32, 33, 3], [33, 34, 3], [34, 35, 3], [35, 36, 3],
-			[36, 37, 3], [37, 38, 3], [38, 39, 3], [39, 32, 3], [16, 32, 3], [17, 33, 3], [18, 34, 3], [19, 35, 3],
-			[20, 36, 3], [21, 37, 3], [22, 38, 3], [23, 39, 3], [40, 15, 1], [10, 41, 1], [41, 42, 1], [42, 11, 1],
-			[14, 43, 1], [43, 40, 1], [40, 44, 1], [41, 45, 1], [42, 46, 1], [43, 47, 1], [47, 44, 1], [45, 46, 1]
+			[0, 1, 2],
+			[1, 2, 2],
+			[2, 3, 2],
+			[3, 0, 2],
+			[4, 5, 2],
+			[5, 6, 2],
+			[6, 7, 2],
+			[7, 4, 2],
+
+			[0, 4, 2],
+			[1, 5, 2],
+			[2, 6, 2],
+			[3, 7, 2],
+			[8, 9, 3],
+			[9, 10, 3],
+			[10, 11, 3],
+			[11, 12, 3],
+
+			[12, 13, 3],
+			[13, 14, 3],
+			[14, 15, 3],
+			[15, 8, 3],
+			[24, 25, 3],
+			[25, 26, 3],
+			[26, 27, 3],
+			[27, 28, 3],
+
+			[28, 29, 3],
+			[29, 30, 3],
+			[30, 31, 3],
+			[31, 24, 3],
+			[8, 24, 3],
+			[9, 25, 3],
+			[10, 26, 3],
+			[11, 27, 3],
+
+			[12, 28, 3],
+			[13, 29, 3],
+			[14, 30, 3],
+			[15, 31, 3],
+			[16, 17, 3],
+			[17, 18, 3],
+			[18, 19, 3],
+			[19, 20, 3],
+
+			[20, 21, 3],
+			[21, 22, 3],
+			[22, 23, 3],
+			[23, 16, 3],
+			[32, 33, 3],
+			[33, 34, 3],
+			[34, 35, 3],
+			[35, 36, 3],
+
+			[36, 37, 3],
+			[37, 38, 3],
+			[38, 39, 3],
+			[39, 32, 3],
+			[16, 32, 3],
+			[17, 33, 3],
+			[18, 34, 3],
+			[19, 35, 3],
+
+			[20, 36, 3],
+			[21, 37, 3],
+			[22, 38, 3],
+			[23, 39, 3],
+			[40, 15, 1],
+			[10, 41, 1],
+			[41, 42, 1],
+			[42, 11, 1],
+
+			[14, 43, 1],
+			[43, 40, 1],
+			[40, 44, 1],
+			[41, 45, 1],
+			[42, 46, 1],
+			[43, 47, 1],
+			[47, 44, 1],
+			[45, 46, 1]
 		];
 
 		function inicializa() {
@@ -258,13 +407,12 @@
 			return 0;
 		}
 
-		function rotate(x, y, z)
-		{
+		function rotate(x, y, z) {
 			xv += x;
 			yv += y;
 			zv += z;
 
-			console.log(xv, yv, zv);
+			//console.log(xv, yv, zv);
 
 			calcula();
 			linhas();
